@@ -1,30 +1,39 @@
-
 <html>
 <head>
- <script src='http://code.jquery.com/jquery-1.6.4.min.js'></script>
-<script>
-// client code here
-// Client code
-var counter = 0;
-var poll = function() {
-    $.getJSON('/poll/'+counter, function(response) {
-    counter = response.count;
-    var elem = $('#output');
-    elem.text(elem.text() + response.append);
-    poll();
-    });
-}
-poll();
-</script>
+    <link rel="stylesheet" href="styles/main.css">
 </head>
 <body>
+        <!-- The Modal -->
+    <div  id ="overlay" class="Modal-overlay">
+    <div id ="myModal" class="modal">
+
+        <!-- Modal content -->
+        <div id="modal-content" class="modal-content">
+            <h1>Who are you?</h1>
+            <div class="modal_div">
+                <label for="userName" class="modal_lable">Full name:</label>
+                <input id="userName" class="modal_input"><br/>
+            </div>
+            <div class="modal_div">
+                <label for="email" class="modal_lable">Email:</label>
+                <input id="email" class="modal_input"><br/>
+            </div>
+            <div class="modal_last_div">
+                <button type="submit" id="btnAnonymous" onclick="anonymous()">Stay Anonymous</button>
+                <button type="submit" id="btnlogin" class="save_btn" onclick= "btnlogin()">Login</button>
+            </div>
+        </div>
+
+    </div>
+    </div>
 <textarea id="output" style="width: 100%; height: 80%;">
 </textarea>
- <form action="http://localhost:8080" method="POST">
-        <label for="id-name">Name</label>
-        <input id="id-name" type="text" name="firstName">
-        <button>Submit</button>
-    </form>
+        <input id ="msg" type="text" name=" ">
+        <button onclick="sendMsg()">Submit</button>
 
+<script src='scripts/main.js'>
+  
+    </script>   
 </body>
+
 </html>
