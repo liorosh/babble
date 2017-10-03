@@ -15,45 +15,48 @@ var url_parts = url.parse(req.url);
 //console.log(url_parts);
 if  (req.method === 'POST') {
 
-    //if(req.path == '/messages)
+    if(req.url == '/messages'){
     var requestBody = '';
         req.on('data', function(chunk) {
-            requestBody += chunk.toString();
+            requestBody = JSON.parse(chunk);
         });
     req.on('end',function(){
         console.log('we have all the data ', requestBody);
-        messages.push(requestBody);
+        messages.push(requestBody.message);
         while(clients.length > 0) {
             var client = clients.pop();
             client.end(JSON.stringify( {
                 count: messages.length,
-                append: {
-                    name: requestBody.name,
-                    email: requestBody.email
-                }
+                append: requestBody.message
         }));
         }
     })
 }
-if(url_parts.pathname == '/') {
+}
+/*if(url_parts.pathname == '/') {
     // file serving
     fs.readFile('../client/index.html', function(err, data) {
     res.end(data);
-    });
-} else if(url_parts.pathname.substr(0, 5) == '/poll') {
+});
+
+} */
+else if (req.method === 'GET'){
+console.log('GET');
+    if(url_parts.pathname.substr(0, 9) == '/messages')
+    {
 // polling code here
-console.log('Server 2.');
-    var count = url_parts.pathname.replace(/[^0-9]*/, '');
-    console.log(count);
-    if(messages.length > count) {
-         res.end(JSON.stringify( {
-            count: messages.length,
-            append: messages.slice(count).join("\n")+"\n"
-        }));
-    } else {
-        clients.push(res);
-    }
-} /*else if(url_parts.pathname.substr(0, 5) == '/msg/') {
+        var count = url_parts.query.replace(/[^0-9]*/, '');
+        console.log(count);
+        if(messages.length > count) {
+            res.end(JSON.stringify( {
+                count: messages.length,
+                append: messages.slice(count)
+            }));
+        } else {//get in line
+            clients.push(res);
+        }
+    } 
+    /*else if(url_parts.pathname.substr(0, 5) == '/msg/') {
     // message receiving
     console.log('Server 1.');
     var msg = unescape(url_parts.pathname.substr(5));
@@ -67,6 +70,6 @@ console.log('Server 2.');
     }
     res.end();
 }*/
-
+}
 }).listen(9000, 'localhost');
 console.log('Server running.');
