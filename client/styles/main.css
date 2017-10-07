@@ -4,9 +4,8 @@
 	max-height: 300px;
 	overflow: auto;
 	width: 85%;
-	height: 100%;
+	min-height: 50px;
 	resize:none;
-	overflow: auto;
 	border: none;
 }
 .h1header
@@ -80,13 +79,28 @@ li img {
 
 main .msgsList
 {
-	position:absolute;
+	position:relative;
 	overflow: auto;
     width: 92%;
 	height:87%;
-	right: 10px;
+	right: 0px;
 	margin: 0;
+	
 	scroll-behavior: auto;
+	margin-left:none;
+}
+.deleteButton
+{
+	background: url(../images/delete-icon.png) no-repeat;
+    display: none;
+	float:right;
+    outline: none;
+    height: 15px;
+	border: 0px;
+	margin-top:5px;
+}
+ li:hover .deleteButton{
+	display: block;
 }
 .msgForm 
 {
@@ -104,7 +118,7 @@ main .msgsList
 	width: 15%;
 	float: right;
 	border: none;
-	background-color:red; 
+	background-color:white; 
 	padding: 0px;
 	height: 51px;
 	width: 51px;
@@ -130,13 +144,15 @@ main .msgsList
 }
 
 main {
-	position: absolute;
-
-	height: 90%;
+	position: fixed;
+	float:right;
+	height: 87%;
 	width: 85%;
 	right: 0;
 	background-color: #f6f6f6;
 	scroll-behavior: auto;
+	overflow: hidden;
+	margin-bottom: 50px;
 }
 
 nav {
@@ -148,7 +164,7 @@ nav {
     position: fixed; /* Make it stick, even on scroll */
     overflow: hidden; /* Enable scrolling if the sidenav has too much content */
     background-color: #61d290;
-float:left;
+	float:left;
 }
 
 header {
