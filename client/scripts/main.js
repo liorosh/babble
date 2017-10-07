@@ -67,20 +67,31 @@ function displayMsgOnHtml(msg)
         var objId = i;
         var li = document.createElement("li");
         var msgdiv = document.createElement("div");
+        var libody = document.createElement("div");
         var name = document.createElement("cite");
         var time = document.createElement("time");
         var date = new Date(data.time);
-        time.innerHTML ="  "+date.getHours()+":"+ date.getMinutes();
+        var img = document.createElement("img");
+        if(data.user=="")
+            img.src = "../images/anonymous.png";
+        else
+            img.src = "http://www.gravatar.com/avatar/" + data.email;
+        img.setAttribute('alt',"");
+        var m=date.getMinutes();
+        m=m<10?m="0"+m:m;
+        time.innerHTML ="  "+date.getHours()+":"+ m;
         li.id = i;
-        li.className = "msgClass";
+        libody.className = "msgClass";
         if(data.user=="")
             name.textContent ="Anonymous";
         else
             name.textContent = data.user;
         msgdiv.innerHTML = data.message;
-        li.appendChild(name);
-        li.appendChild(time);
-        li.appendChild(msgdiv);
+        li.appendChild(img);
+        libody.appendChild(name);
+        libody.appendChild(time);
+        libody.appendChild(msgdiv);
+        li.appendChild(libody);
         document.getElementById("msgList").appendChild(li);
     }
 }
@@ -107,6 +118,7 @@ function anonymous()
 
 //Listeners
 document.getElementById('sbtMsgBtn').addEventListener("click",sendMsg);
+
 window.addEventListener('load',function()
 {
     console.log("Loading...");

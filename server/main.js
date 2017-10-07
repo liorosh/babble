@@ -20,13 +20,16 @@ if  (req.method === 'POST') {
             requestBody = JSON.parse(chunk);
         });
     req.on('end',function(){
+        var md5=require('md5');
+        console.log(md5(requestBody.email));
         console.log('we have all the data ', requestBody);
         messages.push(JSON.stringify( {
                 count: messages.length,
                 message:requestBody.message,
                 user:requestBody.name,
                 time:requestBody.timestamp,
-                id : messages.length
+                id : messages.length,
+                email:md5(requestBody.email)
                
         }));
         while(clients.length > 0) {
@@ -38,7 +41,8 @@ if  (req.method === 'POST') {
                 message:requestBody.message,
                 user:requestBody.name,
                 time:requestBody.timestamp,
-                id:messages.length
+                id:messages.length,
+                email:md5(requestBody.email)
                  })]
         }));
         }

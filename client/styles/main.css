@@ -1,18 +1,6 @@
- /*.Modal {
- 	border: 1px solid black;
- 	position: fixed;	
- 	top: 50%;
- 	left: 50%;
- 	min-height: 300px;
- 	transform: translateY(-50%) translateX(-50%);
- 	background-color: white;
- 	padding: 20px;
- 	box-shadow: 0 0 10px 0 black;
- }
- body{
-	 overflow: hidden;
- }*/
-.inputMsg{
+
+.inputMsg
+{
 	max-height: 300px;
 	overflow: auto;
 	width: 85%;
@@ -33,44 +21,75 @@ ol time {
     clear: right;
     padding-left: 5px;
 }
-.msgsList
+
+li
 {
-	position:relative;
-	height: 100%;
-	overflow: auto;
-}
-li{
 	color: #000;
-border-radius: 10px;
 	font-size: 13px;
 	margin-left: 0px;
+		min-height: 50px;
+	list-style: none;
+	margin-bottom:10px;
+	height: fit-content;
+	width:fit-content;
+}
+.msgClass:hover
+{
+	 background-color: #D8DADA;
 }
 .msgClass {
+	border-radius: 10px;
 	min-width:300px;
 	min-height: 38px;
-	 border: 1px solid #b3b7b7;
+	border: 1px solid #b3b7b7;
 	width:fit-content;
 	background-color: white;
 	margin-bottom:10px;
 	list-style: none;
 	max-width: 600px;
 	word-wrap: break-word; 
+	padding: 3px;
+	position: absolute;
+	left:83px;
 }
 li cite {
 	padding: 5px;
 	font-style: normal;
 	font-weight: bold;
-	
 }
-ol {
+li div{
+	padding-left:5px;
+}
+li img {
+	padding-top: 2px;
+	padding-right: 5px;
+	float:left;
+	height:37px;
+	width: 36px;
+	border-radius: 100px;
+}
+
+.title {
+    color: black;
+    position: relative;
+    left: 4%;
+    width: 96%;
+    font-size: 20px;
+    font-family: Nunito; 
+}
+
+.msgsList
+{
+	position:absolute;
+
+	overflow: auto;
+	overflow-y: auto;
     width: 92%;
-    height: 57%;
-    overflow-y: scroll;
-    min-height: 15%;
-    position: absolute;
+    height: fit-content;
+    
 	right: 10px;
 	margin: 0;
-	overflow-x: hidden;
+	scroll-behavior: auto;
 }
 .msgForm 
 {
@@ -81,7 +100,7 @@ ol {
 	position: fixed;
 	height: 10%;
  	bottom: 0px;
-	 margin-bottom: 0px;
+	margin-bottom: 0px;
 }
 .submitMsgBtn
 {
@@ -129,7 +148,7 @@ nav {
     width:15%;
     height: 100%; /* Full height */
     position: fixed; /* Make it stick, even on scroll */
-    overflow: auto; /* Enable scrolling if the sidenav has too much content */
+    overflow: hidden; /* Enable scrolling if the sidenav has too much content */
     background-color: #61d290;
 float:left;
 }
