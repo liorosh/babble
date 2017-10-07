@@ -78,15 +78,12 @@ li img {
     font-family: Nunito; 
 }
 
-.msgsList
+main .msgsList
 {
 	position:absolute;
-
 	overflow: auto;
-	overflow-y: auto;
     width: 92%;
-    height: fit-content;
-    
+	height:87%;
 	right: 10px;
 	margin: 0;
 	scroll-behavior: auto;
@@ -133,10 +130,11 @@ li img {
 }
 
 main {
-	position: relative;
-	float: right;
+	position: absolute;
+
 	height: 90%;
 	width: 85%;
+	right: 0;
 	background-color: #f6f6f6;
 	scroll-behavior: auto;
 }
