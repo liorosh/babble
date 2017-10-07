@@ -20,7 +20,7 @@
     "start": "npm-run-all -p -r Api-server files-server",
     "Api-server": "node server/main.js",
     "files-server": "http-server ./client -p 8080",
-    "test": "mocha"
+    "test": "mocha test/server/test.js && http-server -a localhost -p 8081"
   },
   "repository": {
     "type": "git",

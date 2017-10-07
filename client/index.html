@@ -1,39 +1,49 @@
+<!DOCTYPE html>
 <html>
 <head>
-    <link rel="stylesheet" href="styles/main.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vegans - Babble</title>
 </head>
 <body>
+    <header class="header">
+        <img src="/images/babble-logo.png" alt="logo">
+    </header>
+    <nav>
+    </nav>
         <!-- The Modal -->
     <div  id ="overlay" class="Modal-overlay">
-    <div id ="myModal" class="modal">
-
+        <div id ="myModal" class="modal">
         <!-- Modal content -->
-        <div id="modal-content" class="modal-content">
-            <h1>Who are you?</h1>
-            <div class="modal_div">
-                <label for="userName" class="modal_lable">Full name:</label>
-                <input id="userName" class="modal_input"><br/>
-            </div>
-            <div class="modal_div">
-                <label for="email" class="modal_lable">Email:</label>
-                <input id="email" class="modal_input"><br/>
-            </div>
-            <div class="modal_last_div">
-                <button type="submit" id="btnAnonymous" onclick="anonymous()">Stay Anonymous</button>
-                <button type="submit" id="btnlogin" class="save_btn" onclick= "btnlogin()">Login</button>
+            <div id="modal-content" class="modal-content">
+                <h1>Who are you?</h1>
+                <div class="modal_div">
+                    <label for="userName" class="modal_lable">Full name:</label>
+                    <input id="userName" class="modal_input"><br/>
+                </div>
+                <div class="modal_div">
+                    <label for="email" class="modal_lable">Email:</label>
+                    <input id="email" class="modal_input"><br/>
+                </div>
+                <div class="modal_last_div">
+                    <button type="submit" id="btnAnonymous" onclick="anonymous()">Stay Anonymous</button>
+                    <button type="submit" id="btnlogin" class="save_btn" onclick= "btnlogin()">Login</button>
+                </div>
             </div>
         </div>
-
     </div>
-    </div>
-<textarea id="output" style="width: 100%; height: 80%;">
-</textarea>
-        <input id ="msg" type="text" name=" ">
-        <button onclick="sendMsg()">Submit</button>
-
-<script src='scripts/main.js'>
-  
-    </script>   
+    <main>
+        <ol  class="msgsList" id="msgList">
+        </ol>
+        <form id="msgForm" class="msgForm">
+                <textarea id="msg" class="inputMsg" >
+                </textarea>
+                <button id="sbtMsgBtn"  aria-label="submit" type="submit" class="submitMsgBtn"><img src="./images/button.jpg" alt=""></button>
+        </form>
+    </main>
+<link rel="stylesheet" href="styles/main.css">
+<link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
+<script src='scripts/main.js'></script>   
 </body>
-
 </html>
+

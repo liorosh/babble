@@ -8,9 +8,137 @@
  	background-color: white;
  	padding: 20px;
  	box-shadow: 0 0 10px 0 black;
+ }
+ body{
+	 overflow: hidden;
  }*/
+.inputMsg{
+	max-height: 300px;
+	overflow: auto;
+	width: 85%;
+	height: 100%;
+	resize:none;
+	overflow: auto;
+	border: none;
+}
+.h1header
+{
+	position:relative;
+	height: 10%;
+}
+ol time {
+    color: #a0a5a5;
+    font-size: 9px;
+    padding-left: 1%; 
+    clear: right;
+    padding-left: 5px;
+}
+.msgsList
+{
+	position:relative;
+	height: 100%;
+	overflow: auto;
+}
+li{
+	color: #000;
+border-radius: 10px;
+	font-size: 13px;
+	margin-left: 0px;
+}
+.msgClass {
+	min-width:300px;
+	min-height: 38px;
+	 border: 1px solid #b3b7b7;
+	width:fit-content;
+	background-color: white;
+	margin-bottom:10px;
+	list-style: none;
+	max-width: 600px;
+	word-wrap: break-word; 
+}
+li cite {
+	padding: 5px;
+	font-style: normal;
+	font-weight: bold;
+	
+}
+ol {
+    width: 92%;
+    height: 57%;
+    overflow-y: scroll;
+    min-height: 15%;
+    position: absolute;
+	right: 10px;
+	margin: 0;
+	overflow-x: hidden;
+}
+.msgForm 
+{
+	border-top:solid thin grey;
+	background-color: white;
+	width: 85%;
+	float: right;
+	position: fixed;
+	height: 10%;
+ 	bottom: 0px;
+	 margin-bottom: 0px;
+}
+.submitMsgBtn
+{
+	width: 15%;
+	float: right;
+	border: none;
+	background-color:red; 
+	padding: 0px;
+	height: 51px;
+	width: 51px;
+}
+.submit
+{
+	position:absolute;
+	/* left:0px;
+	top:0px;*/
+	width: 20;
+	height: 20;
+	z-index:-1;
+	align-content: center;
+}
+.submit-frame
+{
+	position:absolute;
+	/*left:40px;
+	top:10px;*/
+	width: 42;
+	height: 42;
+	z-index:-1;
+}
 
-.Modal {
+main {
+	position: relative;
+	float: right;
+	height: 90%;
+	width: 85%;
+	background-color: #f6f6f6;
+	scroll-behavior: auto;
+}
+
+nav {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    width:15%;
+    height: 100%; /* Full height */
+    position: fixed; /* Make it stick, even on scroll */
+    overflow: auto; /* Enable scrolling if the sidenav has too much content */
+    background-color: #61d290;
+float:left;
+}
+
+header {
+	z-index: 20;
+	background-color: #353744;
+}
+.modal {
 	border: 1px solid black;
 	position: fixed;	
 	top: 0;
@@ -27,11 +155,12 @@
 }
 
 .Modal-overlay {
+	z-index: 10;
 	background-color: rgba(0, 0, 0, 0.5);
 	position: fixed;
 	width: 100%;
 	height: 100%;
-	top: 0;
+	top: 64;
 	left: 0;
 }
 
@@ -41,4 +170,10 @@
 
 .Modal:target {
 	display: block;
+}
+body {
+	font-family: 'Nunito' , arial, sans-serif;
+  font-size: 15px;
+  overflow: hidden;
+	margin: 0px;
 }

@@ -14,7 +14,6 @@ http.createServer(function (req, res) {
 var url_parts = url.parse(req.url);
 //console.log(url_parts);
 if  (req.method === 'POST') {
-
     if(req.url == '/messages'){
     var requestBody = '';
         req.on('data', function(chunk) {
@@ -22,12 +21,25 @@ if  (req.method === 'POST') {
         });
     req.on('end',function(){
         console.log('we have all the data ', requestBody);
-        messages.push(requestBody.message);
+        messages.push(JSON.stringify( {
+                count: messages.length,
+                message:requestBody.message,
+                user:requestBody.name,
+                time:requestBody.timestamp,
+                id : messages.length
+               
+        }));
         while(clients.length > 0) {
             var client = clients.pop();
             client.end(JSON.stringify( {
                 count: messages.length,
-                append: requestBody.message
+                append:
+                 [JSON.stringify({
+                message:requestBody.message,
+                user:requestBody.name,
+                time:requestBody.timestamp,
+                id:messages.length
+                 })]
         }));
         }
     })
@@ -56,20 +68,11 @@ console.log('GET');
             clients.push(res);
         }
     } 
-    /*else if(url_parts.pathname.substr(0, 5) == '/msg/') {
-    // message receiving
-    console.log('Server 1.');
-    var msg = unescape(url_parts.pathname.substr(5));
-    messages.push(msg);
-    while(clients.length > 0) {
-        var client = clients.pop();
-        client.end(JSON.stringify( {
-        count: messages.length,
-        append: msg+"\n"
-        }));
+    else{
+       // res.writeHead(400);
+       //res.end();
     }
-    res.end();
-}*/
+
 }
 }).listen(9000, 'localhost');
 console.log('Server running.');
