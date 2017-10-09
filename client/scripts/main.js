@@ -15,10 +15,12 @@ getMessages : function getMessages(counter, callback)
             Babble.counter--;
             removeMessage(data);
         }
-        else{
-        callback(data.append); 
-        Babble.counter = data.count;
+        else
+        {
+            callback(data.append); 
+            Babble.counter = data.count;
         }
+        document.getElementById('msgCount').textContent=Babble.counter;
         getMessages(Babble.counter, displayMsgOnHtml);
     };
     request.send();
@@ -26,7 +28,25 @@ getMessages : function getMessages(counter, callback)
 
 register: function register(userInfo)
 {
- window.localStorage.setItem("babble",JSON.stringify({currentMessage:'',userInfo:{name:userInfo.uname,email:userInfo.email}}));
+    var request = new XMLHttpRequest();
+    localStorage.setItem("babble",JSON.stringify({currentMessage:'',userInfo:{name:userInfo.uname,email:userInfo.email}}));
+    if("undefined"!==typeof(localStorage))
+    {
+        var user=JSON.stringify(
+            {
+            name: userInfo.uname,
+            email: userInfo.email,
+            status:'in'
+        })
+        request.open('POST','http://localhost:9000/login',true);
+        request.send(user);
+    }
+    request.onload= function(){
+        document.getElementById('overlay').hidden = true;
+        document.getElementById('myModal').style.display = "none"; 
+        
+
+    }
 },
 
 postMessages: function postMessages(message, callback)
@@ -43,7 +63,8 @@ postMessages: function postMessages(message, callback)
     }
     request.send(JSON.stringify(message));
 },
-deleteMessage: function deleteMessage(id, callback){
+deleteMessage: function deleteMessage(id, callback)
+{
     var request = new XMLHttpRequest();
     request.open('DELETE', 'http://localhost:9000/messages/' + id,true)
     request.onload = function(){
@@ -54,13 +75,24 @@ deleteMessage: function deleteMessage(id, callback){
     request.send();
 console.log(id);
 },
-
+getStats: function getStats(callback)
+{
+    var usrCount = document.getElementById('usrCount').textContent;
+    var request = new XMLHttpRequest();
+    request.open('GET','http://localhost:9000/stats',true);
+    request.onload = function()
+    {
+         document.getElementById('usrCount').textContent = JSON.parse(request.responseText);
+         getStats();
+    }
+    request.send();
+}
 
 };
 
 function sendMsg ()
 {
-    event.preventDefault();
+
     if(JSON.parse(localStorage.getItem('babble'))!=null)
     {
         var user= JSON.parse(localStorage.getItem('babble'));
@@ -122,21 +154,20 @@ function displayMsgOnHtml(msg)
     }
 }
 
-function removeMessage(id){
+function removeMessage(id)
+{
     document.getElementById(id).parentElement.remove();
     console.log("removing message from clients..");
 }
 function deletemsg(id){
     console.log("deletemsg");
-    Babble.deleteMessage(id);
+    Babble.deleteMessage(id,null);
 }
 function btnlogin()
 {
     var uname= document.getElementById('userName').value;
     var email= document.getElementById('email').value;
     Babble.register({uname,email});
-    document.getElementById('overlay').hidden = true;
-    document.getElementById('myModal').style.display = "none";
     console.log("loging in: " + uname+" at email: "+ email);
 }
 
@@ -145,18 +176,44 @@ function anonymous()
     var uname='';
     var email='';
     Babble.register({uname,email});
-    document.getElementById('overlay').hidden = true;
-    document.getElementById('myModal').style.display = "none"; 
     console.log("loging anonymous");    
 }
 
 //Listeners
-document.getElementById('sbtMsgBtn').addEventListener("click",sendMsg);
+document.getElementById('sbtMsgBtn').addEventListener("click",function(e){
+    e.preventDefault();
+    sendMsg();
+});
+
+window.onbeforeunload = function(){
+    console.log("onbeforeunload");    
+    var request = new XMLHttpRequest();
+    request.open('POST','http://localhost:9000/login',true);
+    request.onload = function(){
+        var returnva=JSON.parse(request.responseText);
+    }
+    var usr = JSON.parse(localStorage.getItem('babble'));
+    request.send(JSON.stringify(
+    {
+        name:usr.userInfo.name,
+        email:usr.userInfo.email,
+        status:'out'
+    }))
+        console.log("onbeforeunload");    
+            console.log("onbeforeunload");    
+                console.log("onbeforeunload");    
+                    console.log("onbeforeunload");    
+
+}
+
 
 window.addEventListener('load',function()
 {
+    /*document.getElementById('msgCount').textContent = 0;
+    document.getElementById('usrCount').textContent = 0;*/
     console.log("Loading...");
     var localData=JSON.stringify(localStorage.getItem('babble'));
-    Babble.getMessages(0, displayMsgOnHtml);
     document.getElementById('myModal').style.display = "block";
-});
+    Babble.getMessages(0, displayMsgOnHtml);
+    Babble.getStats();
+})

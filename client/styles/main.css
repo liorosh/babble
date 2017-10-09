@@ -113,6 +113,37 @@ main .msgsList
  	bottom: 0px;
 	margin-bottom: 0px;
 }
+.hideDetails{
+	display:none;
+	visibility: hidden;
+}
+.msgdetails{
+position: fixed;
+right:50px;
+display: inline-block;
+margin-right: 10px;
+}
+.stats dd img{
+	height: 11px;
+}
+.stats{
+	display: flex;
+	top: 16%;
+	position:fixed;
+	right:4%;
+}
+.stats dd{
+	font-weight: bold;
+	display: inline;
+	margin-left: 5px;
+    margin-right: 7px;
+}
+.usrdetails{
+position: fixed;
+right:100px;
+height: 15%;
+display: inline-block;
+}
 .submitMsgBtn
 {
 	width: 15%;
