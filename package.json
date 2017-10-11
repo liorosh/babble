@@ -14,7 +14,9 @@
     "sinon": "^4.0.0"
   },
   "devDependencies": {
-    "mocha": "^3.5.3"
+    "chai": "^4.1.2",
+    "mocha": "^3.5.3",
+    "sinon": "^4.0.1"
   },
   "scripts": {
     "start": "npm-run-all -p -r Api-server files-server",

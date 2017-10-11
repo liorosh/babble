@@ -4,12 +4,16 @@ counter : 0,
 getMessages : function getMessages(counter, callback)
 { 
     var request = new XMLHttpRequest();
-    //xhr.setRequestHeader('Content-Type', 'application/json');
-    request.open('GET', 'http://localhost:9000/messages?counter='+counter, true);
     console.log('polling....');
+    request.open('GET', 'http://localhost:9000/messages?counter='+counter, true);
+    request.send();
     request.onload = function()
     {
+        if(request.status!=200)
+            return;
         var data = JSON.parse(request.responseText);
+
+
         if(Number.isInteger(data))
         {
             Babble.counter--;
@@ -17,59 +21,60 @@ getMessages : function getMessages(counter, callback)
         }
         else
         {
-            callback(data.append); 
             Babble.counter = data.count;
+            callback(data); 
         }
-        document.getElementById('msgCount').textContent=Babble.counter;
-        getMessages(Babble.counter, displayMsgOnHtml);
-    };
-    request.send();
+        
+        msgCounter = document.getElementById('msgCount');
+        if(null!= msgCounter)
+            msgCounter.textContent=Babble.counter;
+        getMessages(Babble.counter,displayMsgOnHtml);
+    }
 },
 
 register: function register(userInfo)
 {
     var request = new XMLHttpRequest();
-    localStorage.setItem("babble",JSON.stringify({currentMessage:'',userInfo:{name:userInfo.uname,email:userInfo.email}}));
+    localStorage.setItem('babble',JSON.stringify({currentMessage:'',userInfo:{name:userInfo.name,email:userInfo.email}}));
     if("undefined"!==typeof(localStorage))
     {
         var user=JSON.stringify(
             {
-            name: userInfo.uname,
+            name: userInfo.name,
             email: userInfo.email,
             status:'in'
         })
         request.open('POST','http://localhost:9000/login',true);
         request.send(user);
     }
-    request.onload= function(){
-        document.getElementById('overlay').hidden = true;
-        document.getElementById('myModal').style.display = "none"; 
-        
-
-    }
+    request.onload= function(){}
 },
 
-postMessages: function postMessages(message, callback)
+postMessage: function postMessage(message, callback)
 {
-    console.log("postMessages");
+    console.log("postMessage");
     var request = new XMLHttpRequest();
-    request.open('POST', 'http://localhost:9000/messages', true);
-    request.onload = function () 
-    {
-        if (req1.status >= 200 && req1.status < 400)
-        {
-            res1 = JSON.parse(req1.responseText);
-        }
-    }
+    request.open("POST", "http://localhost:9000/messages", true);
+    request.setRequestHeader('Content-Type', 'application/json');
     request.send(JSON.stringify(message));
+    request.addEventListener('load', function (e)  
+    {
+        /*if ((request.status >= 200 && request.status < 400))
+        {}*/
+            if(callback){
+            var res1 = JSON.parse(e.target.responseText);
+                callback(res1);
+            }
+    });
 },
 deleteMessage: function deleteMessage(id, callback)
 {
     var request = new XMLHttpRequest();
     request.open('DELETE', 'http://localhost:9000/messages/' + id,true)
-    request.onload = function(){
+    request.onload = function()
+    {
         console.log("returned from server with message to delete..");
-        if(typeof(callback==="function"))
+        if(callback)
             callback(JSON.parse(request.responseText));
     }
     request.send();
@@ -82,8 +87,13 @@ getStats: function getStats(callback)
     request.open('GET','http://localhost:9000/stats',true);
     request.onload = function()
     {
-         document.getElementById('usrCount').textContent = JSON.parse(request.responseText);
-         getStats();
+        var usrCount = document.getElementById('usrCount');
+        var val = JSON.parse(request.responseText);
+        if(null != usrCount)
+            usrCount.textContent = val.users;
+        if(callback)
+            callback(val);
+        getStats();
     }
     request.send();
 }
@@ -99,7 +109,7 @@ function sendMsg ()
         var msg= document.getElementById('msg').value;
         var date= new Date();
         var temp=date.getTime();
-        Babble.postMessages(
+        Babble.postMessage(
         {
             name:user.userInfo.name,
             email:user.userInfo.email,
@@ -112,9 +122,10 @@ function sendMsg ()
 
 function displayMsgOnHtml(msg)
 {
-    for(i = 0;i < msg.length;i++)
+    var dispMsg=msg.append;
+    for(i = 0;i < dispMsg.length;i++)
     {
-        var data = (msg[i]);
+        var data = (dispMsg[i]);
         var objId = data.id;
         var li = document.createElement("li");
         var msgdiv = document.createElement("div");
@@ -161,31 +172,40 @@ function removeMessage(id)
 }
 function deletemsg(id){
     console.log("deletemsg");
-    Babble.deleteMessage(id,null);
+    Babble.deleteMessage(id);
 }
 function btnlogin()
 {
-    var uname= document.getElementById('userName').value;
+    var name = document.getElementById('userName').value;
     var email= document.getElementById('email').value;
-    Babble.register({uname,email});
-    console.log("loging in: " + uname+" at email: "+ email);
+    Babble.register({name,email});
+    console.log("loging in: " + name+" at email: "+ email);
+    hideModal();
 }
 
 function anonymous()
 {
-    var uname='';
+    var name='';
     var email='';
-    Babble.register({uname,email});
-    console.log("loging anonymous");    
+    Babble.register({name,email});
+    console.log("loging anonymous");
+    hideModal();    
 }
-
+function hideModal(){
+           var modal =  document.getElementById('myModal');
+       var overlay = document.getElementById('overlay');
+        if(modal != null){
+        modal.style.display = "block";
+        modal.style.display = "none"; 
+        }
+       if(overlay!=null)
+        overlay.hidden = true;
+}
 //Listeners
-document.getElementById('sbtMsgBtn').addEventListener("click",function(e){
-    e.preventDefault();
-    sendMsg();
-});
 
-window.onbeforeunload = function(){
+
+window.onbeforeunload = function()
+{
     console.log("onbeforeunload");    
     var request = new XMLHttpRequest();
     request.open('POST','http://localhost:9000/login',true);
@@ -199,21 +219,53 @@ window.onbeforeunload = function(){
         email:usr.userInfo.email,
         status:'out'
     }))
+        usr.currentMessage = document.getElementById('msg').value;
         console.log("onbeforeunload");    
-            console.log("onbeforeunload");    
-                console.log("onbeforeunload");    
-                    console.log("onbeforeunload");    
-
+}
+window.onunload = function()
+{
+    console.log("onbeforeunload");    
+    var request = new XMLHttpRequest();
+    request.open('POST','http://localhost:9000/login',true);
+    request.onload = function(){
+        var returnva=JSON.parse(request.responseText);
+    }
+    var usr = JSON.parse(localStorage.getItem('babble'));
+    request.send(JSON.stringify(
+    {
+        name:usr.userInfo.name,
+        email:usr.userInfo.email,
+        status:'out'
+    }))
+           usr.currentMessage = document.getElementById('msg').value;
+        console.log("onbeforeunload");    
 }
 
 
 window.addEventListener('load',function()
 {
+    console.log("Loading...");
+    /*Babble.getMessages(0, displayMsgOnHtml);
+    Babble.getStats();*/
+    if(localData==null)
+    {
+        localStorage.setItem('babble',JSON.stringify({currentMessage:'',userInfo:{name:"",email:""}}));
+    }   
+    var localData = JSON.parse(localStorage.getItem('babble'));
+    if(localData.userInfo.name!="" && localData.userInfo.name!="")
+    {
+        btnlogin();
+        hideModal();
+    }
+    sbmtBtn = document.getElementById('sbtMsgBtn');
+    if(sbmtBtn!=null){
+        sbmtBtn.addEventListener("click",function(e){
+        e.preventDefault();
+        sendMsg();
+        });
+}
+     Babble.getMessages(0,displayMsgOnHtml);
+    Babble.getStats();
     /*document.getElementById('msgCount').textContent = 0;
     document.getElementById('usrCount').textContent = 0;*/
-    console.log("Loading...");
-    var localData=JSON.stringify(localStorage.getItem('babble'));
-    document.getElementById('myModal').style.display = "block";
-    Babble.getMessages(0, displayMsgOnHtml);
-    Babble.getStats();
 })

@@ -41,6 +41,7 @@ if  (req.method === 'POST') {
                     id : msgId,
                     email:md5(requestBody.email)
             });
+            console.log("finished with msg # "+msgId);
             while(clients.length > 0)
             {
                 var client = clients.pop();
@@ -57,9 +58,9 @@ if  (req.method === 'POST') {
                         }]
                     }));
             }
-            msgId++;
-            console.log("finished with msg # "+msgId);
-        })
+        msgId++;
+        res.end(JSON.stringify({id:msgId}));
+        });
     }
     else if(req.url=='/login')
     {
@@ -84,7 +85,7 @@ if  (req.method === 'POST') {
                     var clientRequest = userReq.pop();
                     clientRequest.end(JSON.stringify(users.length));
                 }*/
-                res.end(JSON.stringify(users.length));    
+                //res.end(JSON.stringify(users.length));    
             }
             else
             {
@@ -97,9 +98,9 @@ if  (req.method === 'POST') {
                 while (userReq.length > 0)
                 {
                     var clientRequest = userReq.pop();
-                    clientRequest.end(JSON.stringify(users.length));
+                    clientRequest.end(JSON.stringify({users:users.length,messages:messages.length}));
                 }
-                res.end(JSON.stringify(users.length));
+                res.end(JSON.stringify({users:users.length,messages:messages.length}));
         })
     }
 }
