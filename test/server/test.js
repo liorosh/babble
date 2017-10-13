@@ -7,7 +7,7 @@ describe('Message', function() {
   it('should load the messages module', function() {
     assert.notEqual(null, messages);
   });
- /* it('should be able to add a new message and return id', function() {
+  it('should be able to add a new message and return id', function() {
     let message = {message: '1'};
     let id = messages.addMessage(message);
     assert.notEqual(null, id);
@@ -24,5 +24,5 @@ describe('Message', function() {
     let id = messages.addMessage(message);
     messages.deleteMessage(id);
     assert.equal(null, messages.getMessages(0).find(m => m.id === id));
-  });*/
+  });
 });

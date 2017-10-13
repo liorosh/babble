@@ -1,17 +1,16 @@
 
-.inputMsg
+/*.inputMsg
 {
-	float:right;
-	position: fixed;
-	bottom:0rem;
-	/*left:0px;*/
-	height: 10%;
+	position: absolute;
+	top:0px;
+	left:0px;
 	max-height: 300px;
 	overflow: auto;
 	width: 85%;
+	min-height: 50px;
 	resize:none;
 	border: none;
-}
+}*/
 .h1header
 {
 	position:relative;
@@ -123,15 +122,15 @@ main .msgsList
 }
 .msgForm 
 {
-	height: 10%;
-	border-bottom:solid thick red;
+
 	border-top:solid thin grey;
 	background-color: white;
 	width: 100%;
 	float: left;
-	position: fixed	;
+	position: relative	;
+	height: 40%;
 	margin-bottom: 0px;
-	bottom:0;
+	min-height: 150px;
 }
 .hideDetails{
 	display:none;
@@ -168,9 +167,6 @@ display: inline-block;
 }
 .submitMsgBtn
 {
-	margin-right:0rem;
-	position: absolute;
-	right:150px;
 	width: 15%;
 	float: right;
 	border: none;
@@ -178,7 +174,6 @@ display: inline-block;
 	padding: 0px;
 	height: 51px;
 	width: 51px;
-	bottom:0px;
 }
 .submit
 {
@@ -230,7 +225,7 @@ header {
 	background-color: #353744;
 }
 .modal {
-	border: 1px solid black;
+	/*border: 1px solid black;
 	position: fixed;	
 	top: 0;
 	left: 0;	
@@ -240,6 +235,15 @@ header {
 	max-width: 600px;
 	max-height: 300px;
 	margin: auto;
+	background-color: white;
+	padding: 20px;
+	box-shadow: 0 0 10px 0 black;*/
+	border: 1px solid black;
+	position: fixed;	
+	top: 50%;
+	left: 50%;
+	min-height: 300px;
+	transform: translateY(-50%) translateX(-50%);
 	background-color: white;
 	padding: 20px;
 	box-shadow: 0 0 10px 0 black;
@@ -267,4 +271,55 @@ body {
   font-size: 15px;
   overflow: hidden;
 	margin: 0px;
+	position: absolute;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/************************************************/
+.Growable {
+	position: fixed;
+	border: 1px solid;
+	max-height: 300px;
+	overflow: hidden;
+	-webkit-scrollbar: red;
+	bottom:0;
+	width:100%;
+}
+
+.Growable textarea,
+.Growable pre {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	font-family: inherit;
+	font-size: inherit;
+	white-space: pre-wrap;
+	word-wrap: break-word;
+	padding: 0.5em;
+}
+
+.Growable textarea {
+	width: 60%;
+	resize: none;
+	border: thick red;
+	float: left;
+	position: relative;
+	bottom: 0; left: 0;
+	height: 100%;
+	overflow: visible;
 }

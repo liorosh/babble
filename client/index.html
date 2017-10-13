@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -33,30 +33,47 @@
         </div>
     </div>
     <main>
+        <div>
         <h1 class = "title">Vegans</h1>
         <dl class="stats">
             <dt><span class="hideDetails">Users</span></dt>
             <dd>
+    
                 <img src = "../images/msgcount-icon.png" alt="">
-                <div id="usrCount" class="usrdetails"></div>
+                <div id="msgCount" class="msgdetails"></div>
             </dd>
             <dt><span class="hideDetails">Messages</span></dt>
             <dd>
                 <img src = "../images/usercount-icon.png" alt="">
-                <div id="msgCount" class="msgdetails"></div>
+                <div id="usrCount" class="usrdetails"></div>
             </dd>
         </dl>
-        <ol  class="msgsList" id="msgList">
+    </div>
+        <ol class="msgsList" id="msgList">
         </ol>
-        <form id="msgForm" class="msgForm">
-                <textarea id="msg" class="inputMsg" >
-                </textarea>
-                <button id="sbtMsgBtn"  aria-label="submit" type="submit" class="submitMsgBtn"><img src="./images/button.jpg" alt=""></button>
-        </form>
+        
+        
+
+            <form id="msgForm" class="msgForm">
+                <textarea id="msg" class="inputMsg"></textarea>
+                    <button id="sbtMsgBtn"  aria-label="submit" type="submit" class="submitMsgBtn"><img src="./images/button.jpg" alt=""></button>
+                </form>
+                
+                <!--
+                    <pre><span></span><br></pre>
+                        <div class="Growable js-growable">
+                    <pre><span></span><br></pre>
+                    <textarea></textarea>
+        </div>
+    -->
+    
+        
+        
     </main>
-<link rel="stylesheet" href="styles/main.css">
-<link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
-<script src='scripts/main.js'></script>   
+    <link rel="stylesheet" href="styles/main.css">
+    <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
+    <script src='scripts/main.js'></script>   
+    
 </body>
 </html>
 

@@ -1,9 +1,10 @@
 var http = require('http'),
 url = require('url'),
 fs = require('fs'),
+messages = require('./messages-util.js'),
 clients = [],
-messages = [];
-users = [];
+Messages = []
+users = [],
 userReq = [];
 var msgId=0;
 http.createServer(function (req, res) {
@@ -30,35 +31,36 @@ if  (req.method === 'POST') {
         req.on('end',function()
         {
             var md5=require('md5');
-            console.log(md5(requestBody.email));
-            console.log('we have all the data ', requestBody);
-            messages.push(
-            {
-                    count: messages.length,
+            var msg= {
+                    count: Messages.length,
                     message:requestBody.message,
                     user:requestBody.name,
                     time:requestBody.timestamp,
                     id : msgId,
-                    email:md5(requestBody.email)
-            });
+                    email:requestBody.email,
+                    gravatar:md5(requestBody.email) 
+            };
+            var msgCounter = messages.addMessage(msg);
+            msgId=msgCounter;
             console.log("finished with msg # "+msgId);
             while(clients.length > 0)
             {
                 var client = clients.pop();
+                client.writeHead(200, { "Content-Type": "text/json" });
                 client.end(JSON.stringify(
                     {
-                        count: messages.length,
-                        append:
-                        [{
+                        count: Messages.length,
+                        append:[msg]
+                        /*[{
                         message:requestBody.message,
                         user:requestBody.name,
                         time:requestBody.timestamp,
                         id:msgId,
                         email:md5(requestBody.email)
-                        }]
+                        }]*/
                     }));
             }
-        msgId++;
+        res.writeHead(200, { "Content-Type": "text/json" });
         res.end(JSON.stringify({id:msgId}));
         });
     }
@@ -98,9 +100,11 @@ if  (req.method === 'POST') {
                 while (userReq.length > 0)
                 {
                     var clientRequest = userReq.pop();
-                    clientRequest.end(JSON.stringify({users:users.length,messages:messages.length}));
+                    clientRequest.writeHead(200, { "Content-Type": "text/json" });
+                    clientRequest.end(JSON.stringify({users:users.length,messages:Messages.length}));
                 }
-                res.end(JSON.stringify({users:users.length,messages:messages.length}));
+                res.writeHead(200, { "Content-Type": "text/json" });
+                res.end(JSON.stringify({users:users.length,messages:Messages.length}));
         })
     }
 }
@@ -111,12 +115,14 @@ console.log('GET');
 // polling code here
         var count = url_parts.query.replace(/[^0-9]*/, '');
         console.log(count);
-        if(messages.length > count) 
+        var msgsToSend = messages.getMessages(count);
+        if(Messages.length > count) 
         {
+            res.writeHead(200, { "Content-Type": "text/json" });
             res.end(JSON.stringify( 
             {
-                count: messages.length,
-                append: messages.slice(count)
+                count: Messages.length,
+                append: msgsToSend
             }));
         } else 
         {//get in line
@@ -133,30 +139,23 @@ console.log('GET');
 else if (req.method === 'DELETE' )
 {
     console.log("delete in server..");
-    if(url_parts.pathname.substr(0,9)=='/messages')
+    if(url_parts.pathname.substr(0,9) == '/messages')
     {
-        var result;
         var msgid = JSON.parse(url_parts.pathname.substr(10));
-   /* req.on('end',function()
-    {
-    });*/
-        console.log(msgid);
-        var msgToDlt = messages.findIndex(function(msgs){
-            return msgs.id==msgid;
-        });
-        if(msgToDlt==-1)
-            result=false;
+        messages.deleteMessage(msgid);
+        /*if(msgToDlt == -1)
+            result = false;
         else
         {
-            messages.splice(msgToDlt,1);
-            result=true;
-            while(clients.length>0){
-                var client=clients.pop();
+            result = true;*/
+            while(clients.length > 0){
+                var client = clients.pop();
+                client.writeHead(200, { "Content-Type": "text/json" });
                 client.end(JSON.stringify(msgid));
-            }
+           // }
         }
         res.writeHead(200, { "Content-Type": "text/json" });
-        res.end(JSON.stringify(result));
+        res.end(JSON.stringify(msgid));
     }
 }
 else if(req.method === 'OPTIONS'){
@@ -165,6 +164,8 @@ else if(req.method === 'OPTIONS'){
 res.end();
 }
 }).listen(9000, 'localhost');
+module.exports.Messages=Messages;
+module.exports.msgId = msgId;
 console.log('Server running.');
 
 
