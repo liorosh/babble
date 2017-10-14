@@ -49,17 +49,13 @@
             </dd>
         </dl>
     </div>
-        <ol class="msgsList" id="msgList">
-        </ol>
-        
-        
-
-            <form id="msgForm" class="msgForm">
-                <label for="msg" hidden>Message: </label>
-                <textarea id="msg" class="inputMsg"></textarea>
-                    <button id="sbtMsgBtn"  aria-label="submit" type="submit" class="submitMsgBtn"><img src="./images/button.jpg" alt=""></button>
-                </form>
-                
+        <ol class="msgsList" id="msgList"></ol>
+        <form id="msgForm" class="msgForm" aria-label="msgForm">
+            <textarea id="msg" class="inputMsg"></textarea>
+            <div class = "submit-container" id = "submit-container">
+                <button id="sbtMsgBtn"  aria-label="submit" type="submit" class="submitMsgBtn"><img src="./images/button.jpg" alt=""></button>
+            </div>
+        </form>
                 <!--
                     <pre><span></span><br></pre>
                         <div class="Growable js-growable">
@@ -67,14 +63,10 @@
                     <textarea></textarea>
         </div>
     -->
-    
-        
-        
     </main>
     <link rel="stylesheet" href="styles/main.css">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
     <script src='scripts/main.js'></script>   
-    
 </body>
 </html>
 
