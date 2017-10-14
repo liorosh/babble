@@ -1,10 +1,22 @@
-
+@media screen and (min-width:0px) {
+	header {
+		width: 100%;
+		z-index: 20;
+		background-color: #353744;
+	}
+header img{
+	width:50%;
+}
 .inputMsg
 {
+	float:right;
+	position: fixed;
+	bottom:0rem;
+	/*left:0px;*/
+	height: 10%;
 	max-height: 300px;
 	overflow: auto;
 	width: 85%;
-	min-height: 50px;
 	resize:none;
 	border: none;
 }
@@ -23,49 +35,70 @@ ol time {
 
 li
 {
+	display: table;
+	list-style: none;
+	margin-bottom:1%;
 	color: #000;
 	font-size: 13px;
-	margin-left: 0px;
-		min-height: 50px;
-	list-style: none;
-	margin-bottom:10px;
-	height: fit-content;
-	width:fit-content;
+}
+.msg-container
+{
+	float: left;
+	height: auto;
+	width:100%;
+	position: relative;
+	display: table-row;
 }
 .msgClass:hover
 {
 	 background-color: #D8DADA;
 }
+.msgClass:focus
+{
+	outline:none;
+	 background-color: #D8DADA;
+}
 .msgClass {
+	right:0;
+	float:right;
+	display: table-row;
 	border-radius: 10px;
-	min-width:300px;
-	min-height: 38px;
+	min-width:25%;
 	border: 1px solid #b3b7b7;
-	width:fit-content;
 	background-color: white;
-	margin-bottom:10px;
 	list-style: none;
-	max-width: 600px;
+	max-width: 200px;
+	position: relative;
 	word-wrap: break-word; 
+	width:fit-content;
 	padding: 3px;
-	position: absolute;
-	left:83px;
+
+
+}
+.img-container
+{
+	vertical-align: top;
+	position: relative;
+	padding-top: 0px;
+	display: table-cell;
 }
 li cite {
+	
 	padding: 5px;
 	font-style: normal;
 	font-weight: bold;
 }
-li div{
+li div
+{
 	padding-left:5px;
 }
 li img {
-	padding-top: 2px;
-	padding-right: 5px;
+	position: relative;
+	top:0px;
 	float:left;
+	border-radius: 100px;
 	height:37px;
 	width: 36px;
-	border-radius: 100px;
 }
 
 .title {
@@ -76,18 +109,33 @@ li img {
     font-size: 20px;
     font-family: Nunito; 
 }
+::-webkit-scrollbar {
+    width: 8px;
+}
+ 
+::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3); 
+    border-radius: 10px;
+}
+ 
+::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5); 
+}
 
 main .msgsList
 {
+    width: calc(100%-1);
 	position:relative;
 	overflow: auto;
-    width: 92%;
-	height:87%;
-	right: 0px;
-	margin: 0;
-	
+	height:calc(60%);
+	padding-top: 10px;
+	padding-bottom: 0px;
+	margin-right: 10px;
 	scroll-behavior: auto;
-	margin-left:none;
+	margin-bottom: 0px;
+	margin-left:0px;
+	overflow-x: hidden;
 }
 .deleteButton
 {
@@ -99,53 +147,64 @@ main .msgsList
 	border: 0px;
 	margin-top:5px;
 }
- li:hover .deleteButton{
+ .msgClass:hover .deleteButton{
+	display: block;
+}
+.msgClass:focus .deleteButton{
 	display: block;
 }
 .msgForm 
 {
+	height: 10%;
 	border-top:solid thin grey;
 	background-color: white;
-	width: 85%;
-	float: right;
-	position: fixed;
-	height: 10%;
- 	bottom: 0px;
+	width: 100%;
+	float: left;
+	position: fixed	;
 	margin-bottom: 0px;
+	bottom:0;
 }
 .hideDetails{
 	display:none;
 	visibility: hidden;
 }
 .msgdetails{
-position: fixed;
-right:50px;
-display: inline-block;
-margin-right: 10px;
+	font-size: 13px;
+	display: inline-block;
 }
-.stats dd img{
+.stats dd img
+{
 	height: 11px;
 }
-.stats{
+.stats
+{
 	display: flex;
-	top: 16%;
+	top: 82px;
 	position:fixed;
 	right:4%;
 }
-.stats dd{
+.stats dd
+{
 	font-weight: bold;
 	display: inline;
-	margin-left: 5px;
-    margin-right: 7px;
+	margin-left: 2px;
+    margin-right: 0px;
 }
-.usrdetails{
-position: fixed;
-right:100px;
-height: 15%;
+
+.usrdetails
+{
+
+font-size: 13px;
+height: 10%;
 display: inline-block;
 }
 .submitMsgBtn
 {
+	right: 5%;
+    bottom: 0px;
+    margin-top: 15px;
+	position: relative;
+	
 	width: 15%;
 	float: right;
 	border: none;
@@ -153,12 +212,11 @@ display: inline-block;
 	padding: 0px;
 	height: 51px;
 	width: 51px;
+	bottom:5px;
 }
 .submit
 {
 	position:absolute;
-	/* left:0px;
-	top:0px;*/
 	width: 20;
 	height: 20;
 	z-index:-1;
@@ -167,57 +225,85 @@ display: inline-block;
 .submit-frame
 {
 	position:absolute;
-	/*left:40px;
-	top:10px;*/
 	width: 42;
 	height: 42;
 	z-index:-1;
 }
 
-main {
+main
+{
+	float:left;
+	width: 100%;
 	position: fixed;
-	float:right;
-	height: 87%;
-	width: 85%;
+	height: 100%;
 	right: 0;
 	background-color: #f6f6f6;
 	scroll-behavior: auto;
 	overflow: hidden;
-	margin-bottom: 50px;
+	margin-bottom: 0px;
 }
 
-nav {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    width:15%;
-    height: 100%; /* Full height */
-    position: fixed; /* Make it stick, even on scroll */
-    overflow: hidden; /* Enable scrolling if the sidenav has too much content */
-    background-color: #61d290;
-	float:left;
+nav 
+{
+	width:0%;
+	/*display: none;
+	visibility: hidden;*/
 }
 
-header {
-	z-index: 20;
-	background-color: #353744;
-}
+
 .modal {
-	border: 1px solid black;
+	font-family: 'Nunito' , arial, sans-serif;
 	position: fixed;	
 	top: 0;
 	left: 0;	
 	right: 0;
 	bottom: 0;
-	width: 80%;
-	max-width: 600px;
-	max-height: 300px;
+	width: 75%;
+	height:85%;
 	margin: auto;
 	background-color: white;
-	padding: 20px;
-	box-shadow: 0 0 10px 0 black;
+	padding: 10px 20px;
+	border-radius: 2px;
 }
-
+.modal_div
+{
+	width:100%;
+}
+.modal-content h1
+{
+	margin-bottom: 20px;
+	font-weight: normal;
+	font-size: 1.4em;
+}
+.modal_lable{
+	margin-top: 20px;
+	width:100%;
+	margin-right: 2px;
+	position: relative;
+	float:left;
+	left:25px;
+}
+.modal_input
+{
+	font-size: 0.9em;
+	font-family: inherit;
+	padding-left: 5px;
+	font-weight: bold;
+	position: relative;
+	float:left;
+	width: 79%;
+    left:25px;
+	margin-top: 0px;
+	margin-bottom: 8px;
+    margin-left:2px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    box-sizing: border-box;
+}
+.modal_last_div
+{
+	align-content: right;
+}
 .Modal-overlay {
 	z-index: 10;
 	background-color: rgba(0, 0, 0, 0.5);
@@ -227,17 +313,137 @@ header {
 	top: 64;
 	left: 0;
 }
-
-.Modal {
+.save_btn
+{
+	bottom:20px;
+	margin-top: 12px;
+	position: absolute;
+	right:28px;
+	border:none;
+	box-shadow: none;
+	color: white;
+	width:70px;
+	height:22px;
+	background: linear-gradient(to bottom,#7cd74e,#49a470);
+}
+.anon_btn
+{
+	bottom:20px;
+	margin-top: 12px;
+	position: absolute;
+	right:108px;
+	width:130px;
+	height:22px;
+	border: none;
+	background: linear-gradient(to bottom,#d0d0d0,#b4b4b4);
+}
+.Modal 
+{
 	display: none;
 }
 
-.Modal:target {
+.Modal:target 
+{
 	display: block;
 }
-body {
+body 
+{
 	font-family: 'Nunito' , arial, sans-serif;
   font-size: 15px;
   overflow: hidden;
 	margin: 0px;
+}
+}
+
+
+@media screen and (min-width:320px)
+{
+
+
+
+	.submitMsgBtn
+	{
+		right: 18%;
+	}
+	header img{
+		width:unset;
+	}
+	.msgClass
+	{
+		max-width: 300px;
+		min-width:200px;
+	}
+}
+@media screen and (min-width:638px)
+{
+
+	.modal_div
+	{
+		width:100%;
+		display: inline-block;
+	}
+
+	.modal 
+	{
+		width: 370px;
+		height:190px;
+		max-width: 600px;
+		max-height: 300px;
+	}
+
+	.modal_lable{
+		margin-top: unset;
+		width:21%;
+		margin-right: 2px;
+		position: fixed;
+		float:left;
+		left:unset;
+	
+	}
+	.modal_input
+	{
+	
+		float:right;
+	left:unset;
+		right:5px;
+	
+	}
+	.save_btn
+	{
+		bottom:unset;
+	
+	}
+	.anon_btn
+	{
+		bottom:unset;
+	}
+
+nav
+{
+	list-style-type: none;
+    margin: 0;
+    padding: 0;
+    width:15%;
+    height: 100%; /* Full height */
+    position: fixed; /* Make it stick, even on scroll */
+    overflow: hidden; /* Enable scrolling if the sidenav has too much content */
+    background-color: #61d290;
+	float:left;
+}
+main{
+	float:right;
+	width: 85%;
+	
+}
+
+.msgClass
+{
+	max-width: 600px;
+	min-width:300px;
+}
+main .msgsList
+{
+
+	/*width: 96%;*/
+}
 }
