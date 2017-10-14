@@ -7,7 +7,6 @@
     "test": "test"
   },
   "dependencies": {
-    "chai": "^4.1.2",
     "init": "^0.1.2",
     "node-sass": "^4.5.3",
     "npm-run-all": "^4.1.1",

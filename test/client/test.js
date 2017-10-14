@@ -108,3 +108,80 @@ describe('Client-Server', function() {
     });
   });
 });
+
+describe('Self Implemented Functions', function()
+{
+  let server, apiUrl;
+  
+      before(function() {
+        apiUrl = 'http://localhost:9000';
+        server = sinon.fakeServer.create();
+      });
+      beforeEach(function() {
+        server.requests.length = 0;
+      });
+      after(function() {
+        server.restore();
+        document.getElementById('msgList').remove();
+        document.getElementById('usrCount').remove();
+        document.getElementById('msgCount').remove();
+      });
+
+    describe('UI Testing', function(){
+      it('Should create new message element in the list', function()
+      {
+        assert.equal(document.getElementById('1'),null);
+        let message = {
+          append:[{
+            message:'Hi, im Lior',
+            user:'Lior Bitton',
+            time:Date.now(),
+            id : 1,
+            email:'lior3103@gmail.com',
+            gravatar:'2941b77caee7edfcaf788947759c01c'
+          }]
+        }
+        displayMsgOnHtml(message);
+        assert.notEqual(document.getElementById('1'),null);
+      });
+      it('Should remove an existing message from the list',function()
+      {
+        let list = document.getElementById('msgList');
+        let listRow = document.createElement('li');
+        let message_container = document.createElement('div');
+        let messageBody = document.createElement('div');
+        messageBody.setAttribute('id','2');
+        message_container.appendChild(messageBody);
+        listRow.appendChild(message_container);
+        list.appendChild(listRow);
+        assert.notEqual(document.getElementById('2'),null);
+        removeMessage(2);
+        assert.equal(document.getElementById('2'),null);
+      });
+      it('Shoudld update chat stats', function()
+      {
+        updateStats({users:2, messages:3});
+        let numberOfUsers = document.getElementById('usrCount').textContent;
+        let numberOfMessages = document.getElementById('msgCount').textContent;
+        assert.equal(numberOfUsers, 2);
+        assert.equal(numberOfMessages,3);
+      })
+    });  
+    describe('login Mechanism', function()
+    {
+      it('should issure POST/login', function()
+      {
+        server.respondWith('POST', `${apiUrl}/login`,JSON.stringify({result: true}));
+        let callback = sinon.spy();
+        let usr = {
+          name:'Lior Bitton',
+          email:'lior3103@gmail.com',
+          status:'out'
+        }
+        logout(usr, callback);
+        server.respond();
+        assert(callback,true);
+      });
+
+    });
+});

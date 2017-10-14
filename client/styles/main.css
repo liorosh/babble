@@ -9,6 +9,11 @@ header img{
 }
 .inputMsg
 {
+	margin-bottom: 0px;
+	padding-top: 0px;
+	padding-bottom: 0px;
+	margin-top: 0px;
+	outline: none;
 	float:right;
 	position: fixed;
 	bottom:0rem;
@@ -16,7 +21,7 @@ header img{
 	height: 10%;
 	max-height: 300px;
 	overflow: auto;
-	width: 85%;
+	width: 70%;
 	resize:none;
 	border: none;
 }
@@ -125,10 +130,13 @@ li img {
 
 main .msgsList
 {
-    width: calc(100%-1);
+	margin-top:0px;
+	bottom:17px;
+	padding-top: 3px;
+    
 	position:relative;
 	overflow: auto;
-	height:calc(60%);
+	height:calc(70%);
 	padding-top: 10px;
 	padding-bottom: 0px;
 	margin-right: 10px;
@@ -147,16 +155,20 @@ main .msgsList
 	border: 0px;
 	margin-top:5px;
 }
- .msgClass:hover .deleteButton{
+.msgClass:hover .deleteButton
+{
+	outline: red;
 	display: block;
 }
-.msgClass:focus .deleteButton{
+.msgClass:focus .deleteButton
+{
+	outline: red;
 	display: block;
 }
 .msgForm 
 {
 	height: 10%;
-	border-top:solid thin grey;
+	border-top:solid thin lightgray;
 	background-color: white;
 	width: 100%;
 	float: left;

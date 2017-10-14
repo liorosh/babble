@@ -1,8 +1,13 @@
 'use strict';
-
+/*
+let assert = require('assert');
+let messages = require('../../server/messages-util');*/
 let assert = require('assert');
 let messages = require('../../server/messages-util');
-
+let main = require('../../server/main.js');
+let chai = require('chai'),
+    expect = chai.expect;
+let chaihttp = require('chai-http');
 describe('Message', function() {
   it('should load the messages module', function() {
     assert.notEqual(null, messages);
@@ -24,5 +29,15 @@ describe('Message', function() {
     let id = messages.addMessage(message);
     messages.deleteMessage(id);
     assert.equal(null, messages.getMessages(0).find(m => m.id === id));
+  });
+});
+describe('Server errors handling', function () {
+  it('Should return error status 404 (not found)', function (done) {
+    chai.request(main.server)
+      .get('/Singapore')
+      .end(function (err, res) {
+        expect(res).to.have.status(404);
+        done();
+      });
   });
 });

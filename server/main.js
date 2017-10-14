@@ -25,10 +25,9 @@ if  (req.method === 'POST') {
             requestBody = JSON.parse(chunk);
         });
         req.on('end',function()
-        {
+        {   //assemble message and push to msg array
             var md5=require('md5');
             var msg= {
-                    count: Messages.length,
                     message:requestBody.message,
                     user:requestBody.name,
                     time:requestBody.timestamp,
@@ -36,8 +35,10 @@ if  (req.method === 'POST') {
                     email:requestBody.email,
                     gravatar:md5(requestBody.email) 
             };
+            //send to message utiles for array insertion.
             var msgCounter = messages.addMessage(msg);
             msgId = msgCounter;
+            //send message to all clients waiting for updates.
             while(clients.length > 0)
             {
                 var client = clients.pop();
@@ -48,10 +49,12 @@ if  (req.method === 'POST') {
                     append:[msg]
                 }));
             }
+            //return success
         res.writeHead(200, { "Content-Type": "text/json" });
         res.end(JSON.stringify({id:msgId}));
         });
     }
+    //login/logout mechanism
     else if(req.url=='/login')
     {
         var requestBody = '';
@@ -61,33 +64,35 @@ if  (req.method === 'POST') {
         });
         req.on('end',function()
         {
-            if(requestBody.status=='in')
+            if(requestBody.status=='in')//if log in
             {
-                users.push(
+                users.push( //push users to users array
                 {
                     name: requestBody.name,
                     email: requestBody.email,
                     status: requestBody.status
                 });
             }
-            else
+            else    //else log put
             {
                 var usrToRemove = users.findIndex(function(usrs)
-                {
+                {//check for index of specific user details
                     return usrs.name == requestBody.name && usrs.email == requestBody.email;
                 });
-                users.splice(usrToRemove,1);
+                users.splice(usrToRemove,1);//remove from array
             }
-                while (userReq.length > 0)
+                while (userReq.length > 0)//both log in and log out clears getstats requests.
                 {
                     var clientRequest = userReq.pop();
                     clientRequest.writeHead(200, { "Content-Type": "text/json" });
                     clientRequest.end(JSON.stringify({users:users.length,messages:Messages.length}));
                 }
+                //return true
                 res.writeHead(200, { "Content-Type": "text/json" });
-                res.end(JSON.stringify({users:users.length,messages:Messages.length}));
+                res.end(JSON.stringify({result:true}));
         })
     }
+    //else wrong prototype for POST
     else if (url_parts.path.includes('messages?counter=') || url_parts.path.includes('/stats') 
             || url_parts.path.includes('/messages/'))
     {
@@ -110,20 +115,22 @@ else if (req.method === 'GET')
     if(url_parts.pathname.substr(0, 9) === '/messages' && url_parts.query.substr(0,8) === 'counter=' && isNaN(url_parts.query.substr(8))===false)
     {
         var count = url_parts.query.replace(/[^0-9]*/, '');
-        var msgsToSend = messages.getMessages(count);
-        if(Messages.length > count) 
+        if(Messages.length > count) //if theres new messages in the server
         {
+            var msgsToSend = messages.getMessages(count);
             res.writeHead(200, { "Content-Type": "text/json" });
             res.end(JSON.stringify( 
             {
                 count: Messages.length,
                 append: msgsToSend
             }));
-        } else 
-        {//get in line
+        } 
+        else //if no new messages, get in line
+        {
             clients.push(res);
         }
     }
+    //wrong prototype for GET
     else if(url_parts.pathname.substr(0,9) === '/messages' && url_parts.query.substr(0,8) !== 'counter=')
     {
         res.writeHead(400);
@@ -147,17 +154,22 @@ else if (req.method === 'DELETE' )
 {
     if(url_parts.pathname.substr(0,10) === '/messages/')
     {
+        //get message id
         var msgid = JSON.parse(url_parts.pathname.substr(10));
+        //delete from array
         messages.deleteMessage(msgid);
         while(clients.length > 0)
         {
+        //and notify all waiting clients what message id to delete
             var client = clients.pop();
             client.writeHead(200, { "Content-Type": "text/json" });
             client.end(JSON.stringify(msgid));
         }
+        //if success
         res.writeHead(200, { "Content-Type": "text/json" });
         res.end(JSON.stringify(msgid));
     }
+    //wrong prototype for DELETE
     else if(url_parts.path === '/messages' || url_parts.path.includes('/messages?counter=0') || url_parts.path === '/stats'
         || url_parts.path === '/login' )
     {
@@ -177,15 +189,18 @@ else if (req.method === 'DELETE' )
 }
 else if(req.method === 'OPTIONS')
 {
+    //return 204 for options
     res.writeHead(204);
     res.end();
 }
 else 
+//something went wrong
 {
     res.writeHead(405);
     res.end();
 }
 }).listen(9000, 'localhost');
+//export for utils.
 module.exports.Messages = Messages;
 module.exports.msgId = msgId;
 console.log('Server running.');
