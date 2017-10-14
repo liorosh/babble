@@ -154,8 +154,9 @@ function displayMsgOnHtml(msg)
         var img = document.createElement("img");
         var currentUser = JSON.parse(localStorage.getItem('babble'));
         var button = document.createElement("button");
-        button.className = "deleteButton"
+        button.className = "deleteButton";
         libody.className = "msgClass";
+        libody.setAttribute('tabindex', data.id+1 );
         tablerow.className = "msg-container";
         imgDiv.className = "img-container";            
         button.setAttribute('aria-label','delete-message');

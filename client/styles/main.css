@@ -53,6 +53,11 @@ li
 {
 	 background-color: #D8DADA;
 }
+.msgClass:focus
+{
+	outline:none;
+	 background-color: #D8DADA;
+}
 .msgClass {
 	right:0;
 	float:right;
@@ -120,7 +125,6 @@ li img {
 
 main .msgsList
 {
-
     width: calc(100%-1);
 	position:relative;
 	overflow: auto;
@@ -143,7 +147,10 @@ main .msgsList
 	border: 0px;
 	margin-top:5px;
 }
- li:hover .deleteButton{
+ .msgClass:hover .deleteButton{
+	display: block;
+}
+.msgClass:focus .deleteButton{
 	display: block;
 }
 .msgForm 
@@ -251,30 +258,30 @@ nav
 	left: 0;	
 	right: 0;
 	bottom: 0;
-	width: 370px;
-	height:190px;
-	max-width: 600px;
-	max-height: 300px;
+	width: 75%;
+	height:85%;
 	margin: auto;
 	background-color: white;
 	padding: 10px 20px;
 	border-radius: 2px;
 }
-.modal-content h1
-{
-	font-weight: normal;
-	font-size: 1.4em;
-}
 .modal_div
 {
 	width:100%;
-	display: inline-block;
+}
+.modal-content h1
+{
+	margin-bottom: 20px;
+	font-weight: normal;
+	font-size: 1.4em;
 }
 .modal_lable{
-	width:21%;
+	margin-top: 20px;
+	width:100%;
 	margin-right: 2px;
-	position: fixed;
-float:left;
+	position: relative;
+	float:left;
+	left:25px;
 }
 .modal_input
 {
@@ -283,9 +290,9 @@ float:left;
 	padding-left: 5px;
 	font-weight: bold;
 	position: relative;
-	float:right;
+	float:left;
 	width: 79%;
-    right:5px;
+    left:25px;
 	margin-top: 0px;
 	margin-bottom: 8px;
     margin-left:2px;
@@ -308,6 +315,7 @@ float:left;
 }
 .save_btn
 {
+	bottom:20px;
 	margin-top: 12px;
 	position: absolute;
 	right:28px;
@@ -320,6 +328,7 @@ float:left;
 }
 .anon_btn
 {
+	bottom:20px;
 	margin-top: 12px;
 	position: absolute;
 	right:108px;
@@ -328,14 +337,17 @@ float:left;
 	border: none;
 	background: linear-gradient(to bottom,#d0d0d0,#b4b4b4);
 }
-.Modal {
+.Modal 
+{
 	display: none;
 }
 
-.Modal:target {
+.Modal:target 
+{
 	display: block;
 }
-body {
+body 
+{
 	font-family: 'Nunito' , arial, sans-serif;
   font-size: 15px;
   overflow: hidden;
@@ -346,6 +358,9 @@ body {
 
 @media screen and (min-width:320px)
 {
+
+
+
 	.submitMsgBtn
 	{
 		right: 18%;
@@ -361,6 +376,48 @@ body {
 }
 @media screen and (min-width:638px)
 {
+
+	.modal_div
+	{
+		width:100%;
+		display: inline-block;
+	}
+
+	.modal 
+	{
+		width: 370px;
+		height:190px;
+		max-width: 600px;
+		max-height: 300px;
+	}
+
+	.modal_lable{
+		margin-top: unset;
+		width:21%;
+		margin-right: 2px;
+		position: fixed;
+		float:left;
+		left:unset;
+	
+	}
+	.modal_input
+	{
+	
+		float:right;
+	left:unset;
+		right:5px;
+	
+	}
+	.save_btn
+	{
+		bottom:unset;
+	
+	}
+	.anon_btn
+	{
+		bottom:unset;
+	}
+
 nav
 {
 	list-style-type: none;
