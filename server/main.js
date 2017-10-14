@@ -8,20 +8,16 @@ users = [],
 userReq = [];
 var msgId=0;
 http.createServer(function (req, res) {
-   /* res.writeHead(200, {
-        'Content-Type': 'text/plain',
-        'Access-Control-Allow-Origin' : '*',
-        'Access-Control-Allow-Methods': 'GET,OPTIONS,POST,DELETE'
-    });*/
+
     res.setHeader('Content-Type', 'text/plain');
     res.setHeader('Access-Control-Allow-Headers','Content-Type, From');
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader("Access-Control-Allow-Methods", 'GET,OPTIONS,POST,DELETE');
 // parse URL
 var url_parts = url.parse(req.url);
-//console.log(url_parts);
+
 if  (req.method === 'POST') {
-    if(req.url == '/messages')
+    if(url_parts.pathname === '/messages' )
     {
         var requestBody = '';
         req.on('data', function(chunk)
@@ -41,24 +37,16 @@ if  (req.method === 'POST') {
                     gravatar:md5(requestBody.email) 
             };
             var msgCounter = messages.addMessage(msg);
-            msgId=msgCounter;
-            console.log("finished with msg # "+msgId);
+            msgId = msgCounter;
             while(clients.length > 0)
             {
                 var client = clients.pop();
                 client.writeHead(200, { "Content-Type": "text/json" });
                 client.end(JSON.stringify(
-                    {
-                        count: Messages.length,
-                        append:[msg]
-                        /*[{
-                        message:requestBody.message,
-                        user:requestBody.name,
-                        time:requestBody.timestamp,
-                        id:msgId,
-                        email:md5(requestBody.email)
-                        }]*/
-                    }));
+                {
+                    count: Messages.length,
+                    append:[msg]
+                }));
             }
         res.writeHead(200, { "Content-Type": "text/json" });
         res.end(JSON.stringify({id:msgId}));
@@ -75,25 +63,18 @@ if  (req.method === 'POST') {
         {
             if(requestBody.status=='in')
             {
-                console.log("loging in user: "+requestBody.name+" with email: "+requestBody.email);
                 users.push(
                 {
                     name: requestBody.name,
                     email: requestBody.email,
                     status: requestBody.status
                 });
-                /*while (userReq.length > 0)
-                {
-                    var clientRequest = userReq.pop();
-                    clientRequest.end(JSON.stringify(users.length));
-                }*/
-                //res.end(JSON.stringify(users.length));    
             }
             else
             {
-                console.log("loging out user: "+requestBody.name+" with email: "+requestBody.email);
-                var usrToRemove = users.findIndex(function(usrs){
-                    return usrs.name==requestBody.name && usrs.email==requestBody.email;
+                var usrToRemove = users.findIndex(function(usrs)
+                {
+                    return usrs.name == requestBody.name && usrs.email == requestBody.email;
                 });
                 users.splice(usrToRemove,1);
             }
@@ -107,14 +88,28 @@ if  (req.method === 'POST') {
                 res.end(JSON.stringify({users:users.length,messages:Messages.length}));
         })
     }
-}
-else if (req.method === 'GET'){
-console.log('GET');
-    if(url_parts.pathname.substr(0, 9) == '/messages')
+    else if (url_parts.path.includes('messages?counter=') || url_parts.path.includes('/stats') 
+            || url_parts.path.includes('/messages/'))
     {
-// polling code here
+        res.writeHead(405);
+        res.end();
+    }
+    else
+    {
+        res.writeHead(404);
+        res.end();
+    }
+}
+else if (req.method === 'GET')
+{
+    if(!url_parts.path)
+    {
+        res.writeHead(404);
+        res.end();
+    }
+    if(url_parts.pathname.substr(0, 9) === '/messages' && url_parts.query.substr(0,8) === 'counter=' && isNaN(url_parts.query.substr(8))===false)
+    {
         var count = url_parts.query.replace(/[^0-9]*/, '');
-        console.log(count);
         var msgsToSend = messages.getMessages(count);
         if(Messages.length > count) 
         {
@@ -128,48 +123,70 @@ console.log('GET');
         {//get in line
             clients.push(res);
         }
-    } 
+    }
+    else if(url_parts.pathname.substr(0,9) === '/messages' && url_parts.query.substr(0,8) !== 'counter=')
+    {
+        res.writeHead(400);
+        res.end();
+    }
+    else if(url_parts.pathname.substr(0,9) === '/messages' && url_parts.query.substr(0,8) === 'counter=' && isNaN(url_parts.query.substr(8)==true))
+    {
+        res.writeHead(400);
+        res.end();
+    }
+    else if(url_parts.path.includes('/messages/')){
+        res.writeHead(405);
+        res.end();
+    }
     else if(req.url=='/stats')
     {
-        console.log("stats...");
        userReq.push(res);
     }
-
 }
 else if (req.method === 'DELETE' )
 {
-    console.log("delete in server..");
-    if(url_parts.pathname.substr(0,9) == '/messages')
+    if(url_parts.pathname.substr(0,10) === '/messages/')
     {
         var msgid = JSON.parse(url_parts.pathname.substr(10));
         messages.deleteMessage(msgid);
-        /*if(msgToDlt == -1)
-            result = false;
-        else
+        while(clients.length > 0)
         {
-            result = true;*/
-            while(clients.length > 0){
-                var client = clients.pop();
-                client.writeHead(200, { "Content-Type": "text/json" });
-                client.end(JSON.stringify(msgid));
-           // }
+            var client = clients.pop();
+            client.writeHead(200, { "Content-Type": "text/json" });
+            client.end(JSON.stringify(msgid));
         }
         res.writeHead(200, { "Content-Type": "text/json" });
         res.end(JSON.stringify(msgid));
     }
+    else if(url_parts.path === '/messages' || url_parts.path.includes('/messages?counter=0') || url_parts.path === '/stats'
+        || url_parts.path === '/login' )
+    {
+        res.writeHead(405);
+        res.end();
+    }
+    else if(isNaN(msgid)==true)
+    {
+        res.writeHead(400);
+        res.end();
+    }
+    else {
+        res.writeHead(404);
+        res.end();
+    }
+
 }
-else if(req.method === 'OPTIONS'){
-    console.log("options...");
+else if(req.method === 'OPTIONS')
+{
     res.writeHead(204);
-res.end();
+    res.end();
+}
+else 
+{
+    res.writeHead(405);
+    res.end();
 }
 }).listen(9000, 'localhost');
-module.exports.Messages=Messages;
+module.exports.Messages = Messages;
 module.exports.msgId = msgId;
 console.log('Server running.');
 
-
-//update number of users
-//send to all wating users the updated data
-//getStats
-//send to server req to wait

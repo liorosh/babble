@@ -1,4 +1,12 @@
-
+@media screen and (min-width:0px) {
+	header {
+		width: 100%;
+		z-index: 20;
+		background-color: #353744;
+	}
+header img{
+	width:50%;
+}
 .inputMsg
 {
 	float:right;
@@ -27,49 +35,65 @@ ol time {
 
 li
 {
+	display: table;
+	list-style: none;
+	margin-bottom:1%;
 	color: #000;
 	font-size: 13px;
-	margin-left: 0px;
-	min-height: 50px;
-	list-style: none;
-	margin-bottom:auto;
-	height: fit-content;
-	width:fit-content;
+}
+.msg-container
+{
+	float: left;
+	height: auto;
+	width:100%;
+	position: relative;
+	display: table-row;
 }
 .msgClass:hover
 {
 	 background-color: #D8DADA;
 }
 .msgClass {
+	right:0;
+	float:right;
+	display: table-row;
 	border-radius: 10px;
-	min-width:300px;
-	min-height: 38px;
+	min-width:25%;
 	border: 1px solid #b3b7b7;
-	width:fit-content;
 	background-color: white;
-	margin-bottom:10px;
 	list-style: none;
-	max-width: 600px;
-	word-wrap: break-word; 
-	padding: 3px;
+	max-width: 200px;
 	position: relative;
-	left:83px;
+	word-wrap: break-word; 
+	width:fit-content;
+	padding: 3px;
+
+
+}
+.img-container
+{
+	vertical-align: top;
+	position: relative;
+	padding-top: 0px;
+	display: table-cell;
 }
 li cite {
+	
 	padding: 5px;
 	font-style: normal;
 	font-weight: bold;
 }
-li div{
+li div
+{
 	padding-left:5px;
 }
 li img {
-	padding-top: 2px;
-	padding-right: 5px;
+	position: relative;
+	top:0px;
 	float:left;
+	border-radius: 100px;
 	height:37px;
 	width: 36px;
-	border-radius: 100px;
 }
 
 .title {
@@ -97,16 +121,17 @@ li img {
 main .msgsList
 {
 
+    width: calc(100%-1);
 	position:relative;
 	overflow: auto;
-    width: 96%;
-	height:60%;
+	height:calc(60%);
 	padding-top: 10px;
 	padding-bottom: 0px;
 	margin-right: 10px;
 	scroll-behavior: auto;
 	margin-bottom: 0px;
 	margin-left:0px;
+	overflow-x: hidden;
 }
 .deleteButton
 {
@@ -124,7 +149,6 @@ main .msgsList
 .msgForm 
 {
 	height: 10%;
-	border-bottom:solid thick red;
 	border-top:solid thin grey;
 	background-color: white;
 	width: 100%;
@@ -138,39 +162,42 @@ main .msgsList
 	visibility: hidden;
 }
 .msgdetails{
-/*position: fixed;
-right:50px;*/
-font-size: 13px;
-display: inline-block;
+	font-size: 13px;
+	display: inline-block;
 }
-.stats dd img{
+.stats dd img
+{
 	height: 11px;
 }
-.stats{
+.stats
+{
 	display: flex;
-	top: 16%;
+	top: 82px;
 	position:fixed;
 	right:4%;
 }
-.stats dd{
+.stats dd
+{
 	font-weight: bold;
 	display: inline;
 	margin-left: 2px;
     margin-right: 0px;
 }
 
-.usrdetails{
-/*position: fixed;
-right:100px;*/
+.usrdetails
+{
+
 font-size: 13px;
 height: 10%;
 display: inline-block;
 }
 .submitMsgBtn
 {
-	margin-right:0rem;
-	position: absolute;
-	right:150px;
+	right: 5%;
+    bottom: 0px;
+    margin-top: 15px;
+	position: relative;
+	
 	width: 15%;
 	float: right;
 	border: none;
@@ -178,13 +205,11 @@ display: inline-block;
 	padding: 0px;
 	height: 51px;
 	width: 51px;
-	bottom:0px;
+	bottom:5px;
 }
 .submit
 {
 	position:absolute;
-	/* left:0px;
-	top:0px;*/
 	width: 20;
 	height: 20;
 	z-index:-1;
@@ -193,8 +218,6 @@ display: inline-block;
 .submit-frame
 {
 	position:absolute;
-	/*left:40px;
-	top:10px;*/
 	width: 42;
 	height: 42;
 	z-index:-1;
@@ -202,10 +225,10 @@ display: inline-block;
 
 main
 {
+	float:left;
+	width: 100%;
 	position: fixed;
-	float:right;
 	height: 100%;
-	width: 85%;
 	right: 0;
 	background-color: #f6f6f6;
 	scroll-behavior: auto;
@@ -213,38 +236,67 @@ main
 	margin-bottom: 0px;
 }
 
-nav {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    width:15%;
-    height: 100%; /* Full height */
-    position: fixed; /* Make it stick, even on scroll */
-    overflow: hidden; /* Enable scrolling if the sidenav has too much content */
-    background-color: #61d290;
-	float:left;
+nav 
+{
+	width:0%;
+	/*display: none;
+	visibility: hidden;*/
 }
 
-header {
-	z-index: 20;
-	background-color: #353744;
-}
+
 .modal {
-	border: 1px solid black;
+	font-family: 'Nunito' , arial, sans-serif;
 	position: fixed;	
 	top: 0;
 	left: 0;	
 	right: 0;
 	bottom: 0;
-	width: 80%;
+	width: 370px;
+	height:190px;
 	max-width: 600px;
 	max-height: 300px;
 	margin: auto;
 	background-color: white;
-	padding: 20px;
-	box-shadow: 0 0 10px 0 black;
+	padding: 10px 20px;
+	border-radius: 2px;
 }
-
+.modal-content h1
+{
+	font-weight: normal;
+	font-size: 1.4em;
+}
+.modal_div
+{
+	width:100%;
+	display: inline-block;
+}
+.modal_lable{
+	width:21%;
+	margin-right: 2px;
+	position: fixed;
+float:left;
+}
+.modal_input
+{
+	font-size: 0.9em;
+	font-family: inherit;
+	padding-left: 5px;
+	font-weight: bold;
+	position: relative;
+	float:right;
+	width: 79%;
+    right:5px;
+	margin-top: 0px;
+	margin-bottom: 8px;
+    margin-left:2px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    box-sizing: border-box;
+}
+.modal_last_div
+{
+	align-content: right;
+}
 .Modal-overlay {
 	z-index: 10;
 	background-color: rgba(0, 0, 0, 0.5);
@@ -254,7 +306,28 @@ header {
 	top: 64;
 	left: 0;
 }
-
+.save_btn
+{
+	margin-top: 12px;
+	position: absolute;
+	right:28px;
+	border:none;
+	box-shadow: none;
+	color: white;
+	width:70px;
+	height:22px;
+	background: linear-gradient(to bottom,#7cd74e,#49a470);
+}
+.anon_btn
+{
+	margin-top: 12px;
+	position: absolute;
+	right:108px;
+	width:130px;
+	height:22px;
+	border: none;
+	background: linear-gradient(to bottom,#d0d0d0,#b4b4b4);
+}
 .Modal {
 	display: none;
 }
@@ -267,4 +340,53 @@ body {
   font-size: 15px;
   overflow: hidden;
 	margin: 0px;
+}
+}
+
+
+@media screen and (min-width:320px)
+{
+	.submitMsgBtn
+	{
+		right: 18%;
+	}
+	header img{
+		width:unset;
+	}
+	.msgClass
+	{
+		max-width: 300px;
+		min-width:200px;
+	}
+}
+@media screen and (min-width:638px)
+{
+nav
+{
+	list-style-type: none;
+    margin: 0;
+    padding: 0;
+    width:15%;
+    height: 100%; /* Full height */
+    position: fixed; /* Make it stick, even on scroll */
+    overflow: hidden; /* Enable scrolling if the sidenav has too much content */
+    background-color: #61d290;
+	float:left;
+}
+main{
+	float:right;
+	width: 85%;
+	
+}
+
+.msgClass
+{
+	max-width: 600px;
+	min-width:300px;
+}
+main .msgsList
+{
+
+	/*width: 96%;*/
+}
 }
