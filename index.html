@@ -12,22 +12,22 @@
     <nav>
     </nav>
         <!-- The Modal -->
-    <div  id ="overlay" class="Modal-overlay">
+    <div id ="overlay" class="Modal-overlay">
         <div id ="myModal" class="modal">
         <!-- Modal content -->
             <div id="modal-content" class="modal-content">
                 <h1>Who are you?</h1>
                 <div class="modal_div">
-                    <label for="userName" class="modal_lable">Full name:</label>
-                    <input id="userName" class="modal_input"><br/>
+                    <label for="userName" class="label modal--label">Full name:</label>
+                    <input id="userName" class="input modal--input"><br/>
                 </div>
                 <div class="modal_div">
-                    <label for="email" class="modal_lable">Email:</label>
-                    <input id="email" class="modal_input"><br/>
+                    <label for="email" class="label modal--label">Email:</label>
+                    <input id="email" class="input modal--input"><br/>
                 </div>
                 <div class="modal_last_div">
-                    <button type="submit" id="btnAnonymous" class="anon_btn" onclick="anonymous()">Stay Anonymous</button>
-                    <button type="submit" id="btnlogin" class="save_btn" onclick= "btnlogin()">Save</button>
+                    <button type="submit" id="btnAnonymous" class="Button Button--anon" onclick="anonymous()">Stay Anonymous</button>
+                    <button type="submit" id="btnlogin" class="Button Button--save" onclick= "btnlogin()">Save</button>
                 </div>
             </div>
         </div>
@@ -38,7 +38,6 @@
         <dl class="stats">
             <dt><span class="hideDetails">Users</span></dt>
             <dd>
-    
                 <img src = "images/msgcount-icon.png" alt="">
                 <div id="msgCount" class="msgdetails"></div>
             </dd>
@@ -53,16 +52,9 @@
         <form id="msgForm" class="msgForm" aria-label="msgForm">
             <textarea id="msg" class="inputMsg"></textarea>
             <div class = "submit-container" id = "submit-container">
-                <button id="sbtMsgBtn"  aria-label="submit" type="submit" class="submitMsgBtn"><img src="./images/button.jpg" alt=""></button>
+                <button id="sbtMsgBtn"  aria-label="submit" type="submit" class="Button Button--submit"><img src="./images/button.jpg" alt=""></button>
             </div>
         </form>
-                <!--
-                    <pre><span></span><br></pre>
-                        <div class="Growable js-growable">
-                    <pre><span></span><br></pre>
-                    <textarea></textarea>
-        </div>
-    -->
     </main>
     <link rel="stylesheet" href="styles/main.css">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">

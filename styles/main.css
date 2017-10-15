@@ -1,384 +1,354 @@
-@media screen and (min-width:0px) {
-	header {
+@media screen and (min-width:0px) 
+{
+	.title 
+	{
+		color: black;
+		position: relative;
+		left: 4%;
+		width: 96%;
+		font-size: 20px;
+		font-family: Nunito; 
+	}
+	body 
+	{
+		font-family: 'Nunito' , arial, sans-serif;
+		font-size: 15px;
+		overflow: hidden;
+		margin: 0px;
+	}
+	header 
+	{
 		width: 100%;
 		z-index: 20;
 		background-color: #353744;
 	}
-header img{
-	width:50%;
-}
-.inputMsg
-{
-	margin-bottom: 0px;
-	padding-top: 0px;
-	padding-bottom: 0px;
-	margin-top: 0px;
-	outline: none;
-	float:right;
-	position: fixed;
-	bottom:0rem;
-	/*left:0px;*/
-	height: 10%;
-	max-height: 300px;
-	overflow: auto;
-	width: 70%;
-	resize:none;
-	border: none;
-}
-.h1header
-{
-	position:relative;
-	height: 10%;
-}
-ol time {
-    color: #a0a5a5;
-    font-size: 9px;
-    padding-left: 1%; 
-    clear: right;
-    padding-left: 5px;
-}
+	header img
+	{
+		width:50%;
+	}
+	nav 
+	{
+		width:0%;
+	}
+	.Modal-overlay 
+	{
+		z-index: 10;
+		background-color: rgba(0, 0, 0, 0.5);
+		position: fixed;
+		width: 100%;
+		height: 100%;
+		top: 64;
+		left: 0;
+	}
+	.modal 
+	{
+		position: fixed;	
+		top: 0;
+		left: 0;	
+		right: 0;
+		bottom: 0;
+		width: 75%;
+		height:85%;
+		margin: auto;
+		background-color: white;
+		padding: 10px 20px;
+		border-radius: 2px;
+	}
+	.modal-content h1
+	{
+		margin-bottom: 20px;
+		font-weight: normal;
+		font-size: 1.4em;
+	}
+	.modal_div
+	{
+		margin-top: 25px;
+		width:100%;
+	}
+	/*.modal_last_div
+	{
+		align-content: right;
+	}*/
+	label.modal--lable
+	{
+		margin-top: 35px;
+		width:100%;
+		margin-right: 2px;
+		position: relative;
+		float:left;
+		left:25px;
+	}
+	input.modal--input
+	{
+		margin-bottom: 25px;
+		font-size: 0.9em;
+		font-family: inherit;
+		padding-left: 5px;
+		font-weight: bold;
+		position: relative;
+		float:right;
+		width: 100%;
+		left:10px;
+		margin-top: 0px;
+		margin-left:5px;
+		border: 1px solid #ccc;
+		border-radius: 6px;
+		box-sizing: border-box;
+	}
 
-li
-{
-	display: table;
-	list-style: none;
-	margin-bottom:1%;
-	color: #000;
-	font-size: 13px;
-}
-.msg-container
-{
-	float: left;
-	height: auto;
-	width:100%;
-	position: relative;
-	display: table-row;
-}
-.msgClass:hover
-{
-	 background-color: #D8DADA;
-}
-.msgClass:focus
-{
-	outline:none;
-	 background-color: #D8DADA;
-}
-.msgClass {
-	right:0;
-	float:right;
-	display: table-row;
-	border-radius: 10px;
-	min-width:25%;
-	border: 1px solid #b3b7b7;
-	background-color: white;
-	list-style: none;
-	max-width: 200px;
-	position: relative;
-	word-wrap: break-word; 
-	width:fit-content;
-	padding: 3px;
-
-
-}
-.img-container
-{
-	vertical-align: top;
-	position: relative;
-	padding-top: 0px;
-	display: table-cell;
-}
-li cite {
-	
-	padding: 5px;
-	font-style: normal;
-	font-weight: bold;
-}
-li div
-{
-	padding-left:5px;
-}
-li img {
-	position: relative;
-	top:0px;
-	float:left;
-	border-radius: 100px;
-	height:37px;
-	width: 36px;
-}
-
-.title {
-    color: black;
-    position: relative;
-    left: 4%;
-    width: 96%;
-    font-size: 20px;
-    font-family: Nunito; 
-}
-::-webkit-scrollbar {
-    width: 8px;
-}
- 
-::-webkit-scrollbar-track {
-    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3); 
-    border-radius: 10px;
-}
- 
-::-webkit-scrollbar-thumb {
-    border-radius: 10px;
-    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5); 
-}
-
-main .msgsList
-{
-	margin-top:0px;
-	bottom:17px;
-	padding-top: 3px;
-    
-	position:relative;
-	overflow: auto;
-	height:calc(70%);
-	padding-top: 10px;
-	padding-bottom: 0px;
-	margin-right: 10px;
-	scroll-behavior: auto;
-	margin-bottom: 0px;
-	margin-left:0px;
-	overflow-x: hidden;
-}
-.deleteButton
-{
-	background: url(../images/delete-icon.png) no-repeat;
-    display: none;
-	float:right;
-    outline: none;
-    height: 15px;
-	border: 0px;
-	margin-top:5px;
-}
-.msgClass:hover .deleteButton
-{
-	outline: red;
-	display: block;
-}
-.msgClass:focus .deleteButton
-{
-	outline: red;
-	display: block;
-}
-.msgForm 
-{
-	height: 10%;
-	border-top:solid thin lightgray;
-	background-color: white;
-	width: 100%;
-	float: left;
-	position: fixed	;
-	margin-bottom: 0px;
-	bottom:0;
-}
-.hideDetails{
-	display:none;
-	visibility: hidden;
-}
-.msgdetails{
-	font-size: 13px;
-	display: inline-block;
-}
-.stats dd img
-{
-	height: 11px;
-}
-.stats
-{
-	display: flex;
-	top: 82px;
-	position:fixed;
-	right:4%;
-}
-.stats dd
-{
-	font-weight: bold;
-	display: inline;
-	margin-left: 2px;
-    margin-right: 0px;
-}
-
-.usrdetails
-{
-
-font-size: 13px;
-height: 10%;
-display: inline-block;
-}
-.submitMsgBtn
-{
-	right: 5%;
-    bottom: 0px;
-    margin-top: 15px;
-	position: relative;
-	
-	width: 15%;
-	float: right;
-	border: none;
-	background-color:white; 
-	padding: 0px;
-	height: 51px;
-	width: 51px;
-	bottom:5px;
-}
-.submit
-{
-	position:absolute;
-	width: 20;
-	height: 20;
-	z-index:-1;
-	align-content: center;
-}
-.submit-frame
-{
-	position:absolute;
-	width: 42;
-	height: 42;
-	z-index:-1;
-}
-
-main
-{
-	float:left;
-	width: 100%;
-	position: fixed;
-	height: 100%;
-	right: 0;
-	background-color: #f6f6f6;
-	scroll-behavior: auto;
-	overflow: hidden;
-	margin-bottom: 0px;
-}
-
-nav 
-{
-	width:0%;
-	/*display: none;
-	visibility: hidden;*/
-}
-
-
-.modal {
-	font-family: 'Nunito' , arial, sans-serif;
-	position: fixed;	
-	top: 0;
-	left: 0;	
-	right: 0;
-	bottom: 0;
-	width: 75%;
-	height:85%;
-	margin: auto;
-	background-color: white;
-	padding: 10px 20px;
-	border-radius: 2px;
-}
-.modal_div
-{
-	width:100%;
-}
-.modal-content h1
-{
-	margin-bottom: 20px;
-	font-weight: normal;
-	font-size: 1.4em;
-}
-.modal_lable{
-	margin-top: 20px;
-	width:100%;
-	margin-right: 2px;
-	position: relative;
-	float:left;
-	left:25px;
-}
-.modal_input
-{
-	font-size: 0.9em;
-	font-family: inherit;
-	padding-left: 5px;
-	font-weight: bold;
-	position: relative;
-	float:left;
-	width: 79%;
-    left:25px;
-	margin-top: 0px;
-	margin-bottom: 8px;
-    margin-left:2px;
-    border: 1px solid #ccc;
-    border-radius: 6px;
-    box-sizing: border-box;
-}
-.modal_last_div
-{
-	align-content: right;
-}
-.Modal-overlay {
-	z-index: 10;
-	background-color: rgba(0, 0, 0, 0.5);
-	position: fixed;
-	width: 100%;
-	height: 100%;
-	top: 64;
-	left: 0;
-}
-.save_btn
-{
-	bottom:20px;
-	margin-top: 12px;
-	position: absolute;
-	right:28px;
-	border:none;
-	box-shadow: none;
-	color: white;
-	width:70px;
-	height:22px;
-	background: linear-gradient(to bottom,#7cd74e,#49a470);
-}
-.anon_btn
-{
-	bottom:20px;
-	margin-top: 12px;
-	position: absolute;
-	right:108px;
-	width:130px;
-	height:22px;
-	border: none;
-	background: linear-gradient(to bottom,#d0d0d0,#b4b4b4);
-}
-.Modal 
-{
-	display: none;
-}
-
-.Modal:target 
-{
-	display: block;
-}
-body 
-{
-	font-family: 'Nunito' , arial, sans-serif;
-  font-size: 15px;
-  overflow: hidden;
-	margin: 0px;
-}
+	Button.Button--save
+	{
+		bottom:20px;
+		margin-top: 12px;
+		position: absolute;
+		right:28px;
+		border:none;
+		box-shadow: none;
+		color: white;
+		width:70px;
+		height:22px;
+		background: linear-gradient(to bottom,#7cd74e,#49a470);
+	}
+	Button.Button--anon
+	{
+		bottom:20px;
+		margin-top: 12px;
+		position: absolute;
+		right:108px;
+		width:130px;
+		height:22px;
+		border: none;
+		background: linear-gradient(to bottom,#d0d0d0,#b4b4b4);
+	}
+	main
+	{
+		float:left;
+		width: 100%;
+		position: fixed;
+		height: 100%;
+		right: 0;
+		background-color: #f6f6f6;
+		scroll-behavior: auto;
+		overflow: hidden;
+		margin-bottom: 0px;
+	}
+	dl.stats
+	{
+		display: flex;
+		top: 82px;
+		position:fixed;
+		right:4%;
+	}
+	.stats dd
+	{
+		font-weight: bold;
+		display: inline;
+		margin-left: 2px;
+		margin-right: 0px;
+	}
+	.hideDetails
+	{
+		display:none;
+		visibility: hidden;
+	}
+	.stats dd img
+	{
+		height: 11px;
+	}
+	.msgdetails
+	{
+		font-size: 13px;
+		display: inline-block;
+	}
+	.usrdetails
+	{
+		font-size: 13px;
+		height: 10%;
+		display: inline-block;
+	}
+	main .msgsList
+	{
+		margin-top:0px;
+		bottom:17px;
+		padding-top: 3px;
+		position:relative;
+		overflow: auto;
+		height:70%;
+		padding-top: 10px;
+		padding-bottom: 0px;
+		margin-right: 10px;
+		scroll-behavior: auto;
+		margin-bottom: 0px;
+		margin-left:0px;
+		overflow-x: hidden;
+	}
+	::-webkit-scrollbar 
+	{
+		width: 8px;
+	}
+	 
+	::-webkit-scrollbar-track 
+	{
+		-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3); 
+		border-radius: 10px;
+	}
+	 
+	::-webkit-scrollbar-thumb {
+		border-radius: 10px;
+		-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5); 
+	}
+	li
+	{
+		display: table;
+		list-style: none;
+		margin-bottom:1%;
+		color: #000;
+		font-size: 13px;
+	}
+	.img-container
+	{
+		vertical-align: top;
+		position: relative;
+		padding-top: 0px;
+		display: table-cell;
+	}
+	.img-container img 
+	{
+		position: relative;
+		top:0px;
+		float:left;
+		border-radius: 100px;
+		height:37px;
+		width: 36px;
+	}
+	.msg-container
+	{
+		float: left;
+		height: auto;
+		width:100%;
+		position: relative;
+		display: table-row;
+		padding-left: 5px;
+	}
+	.msgClass 
+	{
+		padding: 3px;
+		right:0;
+		float:right;
+		display: table-row;
+		border-radius: 10px;
+		min-width:25%;
+		border: 1px solid #b3b7b7;
+		background-color: white;
+		list-style: none;
+		max-width: 200px;
+		position: relative;
+		word-wrap: break-word; 
+		width:fit-content;
+	}
+	.msgClass:hover
+	{
+		 background-color: #D8DADA;
+	}
+	.msgClass:focus
+	{
+		outline:none;
+		 background-color: #D8DADA;
+	}
+	.Button--delete
+	{
+		background: url(../images/delete-icon.png) no-repeat;
+		display: none;
+		float:right;
+		outline: none;
+		height: 15px;
+		border: 0px;
+		margin-top:5px;
+	}
+	.msgClass:hover .Button--delete
+	{
+		display: block;
+	}
+	.msgClass:focus .Button--delete
+	{
+		display: block;
+	}
+	li cite
+	{
+		padding: 5px;
+		font-style: normal;
+		font-weight: bold;
+	}
+	ol time
+	{
+		color: #a0a5a5;
+		font-size: 9px;
+		padding-left: 1%; 
+		clear: right;
+		padding-left: 5px;
+	}
+	.msgForm 
+	{
+		height: 10%;
+		border-top:solid thin lightgray;
+		background-color: white;
+		width: 100%;
+		float: left;
+		position: fixed	;
+		margin-bottom: 0px;
+		bottom:0;
+	}
+	.inputMsg
+	{
+		margin-bottom: 0px;
+		padding-top: 0px;
+		padding-bottom: 0px;
+		margin-top: 0px;
+		outline: none;
+		float:right;
+		position: fixed;
+		bottom:0rem;
+		height: 10%;
+		max-height: 300px;
+		overflow: auto;
+		width: 70%;
+		resize:none;
+		border: none;
+	}
+	.submit-container
+	{
+		position: relative;
+		bottom:8px;
+		right:5px;
+		float: right;
+	}
+	.Button--submit
+	{
+		right: 5%;
+		bottom: 10px;
+		margin-top: 15px;
+		position: relative;
+		width: 15%;
+		float: right;
+		border: none;
+		background-color:white; 
+		padding: 0px;
+		height: 51px;
+		width: 51px;
+		bottom:5px;
+	}
 }
 
 
 @media screen and (min-width:320px)
 {
-
-
-
-	.submitMsgBtn
+	header img
+	{
+		width:unset;
+	}
+	.Button--submit
 	{
 		right: 18%;
-	}
-	header img{
-		width:unset;
 	}
 	.msgClass
 	{
@@ -389,12 +359,6 @@ body
 @media screen and (min-width:638px)
 {
 
-	.modal_div
-	{
-		width:100%;
-		display: inline-block;
-	}
-
 	.modal 
 	{
 		width: 370px;
@@ -402,60 +366,76 @@ body
 		max-width: 600px;
 		max-height: 300px;
 	}
+	.modal_div
+	{
+		margin-top:0px;
+		width:100%;
+		display: inline-block;
+	}
 
-	.modal_lable{
-		margin-top: unset;
+
+	.label.modal--label{
+		margin-top: 0px;;
 		width:21%;
 		margin-right: 2px;
-		position: fixed;
+		position: relative;
 		float:left;
-		left:unset;
+		left:0px;
 	
 	}
-	.modal_input
+	.input.modal--input
 	{
-	
+		margin-bottom: 5px;
+		width: 79%;
+		bottom:20px;
 		float:right;
-	left:unset;
-		right:5px;
+		left:0px;
+
 	
 	}
-	.save_btn
+	.Button.Button--save
 	{
-		bottom:unset;
+		bottom:10px;
 	
 	}
-	.anon_btn
+	.Button.Button--anon
 	{
-		bottom:unset;
+		bottom:10px;
 	}
 
-nav
-{
-	list-style-type: none;
-    margin: 0;
-    padding: 0;
-    width:15%;
-    height: 100%; /* Full height */
-    position: fixed; /* Make it stick, even on scroll */
-    overflow: hidden; /* Enable scrolling if the sidenav has too much content */
-    background-color: #61d290;
-	float:left;
-}
-main{
-	float:right;
-	width: 85%;
-	
-}
+	nav
+	{
+		list-style-type: none;
+		margin: 0;
+		padding: 0;
+		width:15%;
+		height: 100%; /* Full height */
+		position: fixed; /* Make it stick, even on scroll */
+		overflow: hidden; /* Enable scrolling if the sidenav has too much content */
+		background-color: #61d290;
+		float:left;
+	}
+	main
+	{
+		float:right;
+		width: 85%;
+	}
 
-.msgClass
-{
-	max-width: 600px;
-	min-width:300px;
-}
-main .msgsList
-{
+	.msgClass
+	{
+		max-width: 600px;
+		min-width:300px;
+	}
+	.submit-container
+	{
+		position: fixed;
+		bottom:0px;
+		right:15px;
+		float: right;
+	}
+	.Button--submit
+	{
+		bottom:1px;
 
-	/*width: 96%;*/
-}
+	}
 }
