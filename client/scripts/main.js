@@ -1,6 +1,5 @@
 window.Babble = 
 {
-
     counter : 0,
     getMessages : function getMessages(counter, callback)
     { 
@@ -13,11 +12,11 @@ window.Babble =
                 return;
             var data = JSON.parse(request.responseText);
 
-            if(Number.isInteger(data))//if got back from Delete
+            if("" != data && Number.isInteger(data))//if got back from Delete
             { 
                 removeMessage(data);    //send id to remove.
             }
-            else    //else, got back with new messages
+            else if("" != data)   //else, got back with new messages
             {
                 Babble.counter = data.count;
                 callback(data); 
@@ -98,9 +97,9 @@ window.Babble =
                 return;
             //update stats element and send another recursive request to wait again for new updates.
             var val = JSON.parse(request.responseText);
-            if(callback)    
+            if("" != val && callback)    
                 callback(val);
-            getStats(updateStats);
+            getStats(callback);
         }
         request.send();
     }
@@ -150,7 +149,7 @@ function displayMsgOnHtml(msg)
         tablerow.className = "msg-container";
         imgDiv.className = "img-container";
         //create delete button        
-        button.className = "deleteButton";
+        button.className = "Button--delete";
         button.setAttribute('aria-label','delete-message');
         button.setAttribute('tabindex', data.id+1 );
         button.onclick = function (){deletemsg(this.parentElement.id)};
@@ -200,11 +199,12 @@ function displayMsgOnHtml(msg)
 var textarea = document.getElementById("msg");
 var limit = 200;
 
-textarea.oninput = function() {
-  textarea.style.height = "";
-  textarea.style.height = Math.min(textarea.scrollHeight, 300) + "px";
-  textarea.parentElement.style.height = textarea.style.height;
-  document.getElementById('msgList').setAttribute ("style","height:calc(81% - "+textarea.style.height+" )");
+textarea.oninput = function() 
+{
+    textarea.style.height = "";
+    textarea.style.height = Math.min(textarea.scrollHeight, 300) + "px";
+    textarea.parentElement.style.height = textarea.style.height;
+    document.getElementById('msgList').setAttribute ("style","height:calc(81% - "+textarea.style.height+" )");
 };
 
 //update stats html content with data received from server. this function is sent as callback
@@ -226,13 +226,11 @@ function removeMessage(id)
         msg.parentElement.parentElement.remove();
         Babble.counter--;
     }
-    console.log("removing message from clients..");
 }
 
 //button handler for the delete button
 function deletemsg(id)
 {
-    console.log("deletemsg");
     Babble.deleteMessage(id);
 }
 //login handlers for save and anonumous users.
@@ -252,7 +250,6 @@ function anonymous()
     Babble.register({name,email});
     hideModal();    
 }
-
 //hides modal after login occured.
 function hideModal()
 {
@@ -263,15 +260,13 @@ function hideModal()
         modal.style.display = "block";
         modal.style.display = "none"; 
     }
-    if(overlay !=null)
+    if(overlay != null)
         overlay.hidden = true;
     Babble.getMessages(0,displayMsgOnHtml);
 }
-
 /*
 function to be called from unloading listners and send a logout request to the server.
 */
-
 function logout(usr,callback)
 {
     var request = new XMLHttpRequest();
@@ -290,8 +285,6 @@ function logout(usr,callback)
 
 window.onbeforeunload = function()
 {
-    console.log("onbeforeunload");    
-   
     var usr = JSON.parse(localStorage.getItem('babble'));
     logout(
     {
@@ -299,9 +292,8 @@ window.onbeforeunload = function()
         email:usr.userInfo.email,
         status:'out'
     })
-        usr.currentMessage = document.getElementById('msg').value;
-        localStorage.setItem('babble',JSON.stringify(usr));
-        console.log("onbeforeunload");    
+    usr.currentMessage = document.getElementById('msg').value;
+    localStorage.setItem('babble',JSON.stringify(usr));  
 }
 window.onunload = function()
 {
@@ -312,9 +304,8 @@ window.onunload = function()
         email:usr.userInfo.email,
         status:'out'
     })
-           usr.currentMessage = document.getElementById('msg').value;
-           localStorage.setItem('babble',JSON.stringify(usr));
-        console.log("onbeforeunload");    
+    usr.currentMessage = document.getElementById('msg').value;
+    localStorage.setItem('babble',JSON.stringify(usr));
 }
 
 //Page Loading
@@ -340,12 +331,13 @@ window.addEventListener('load',function()
     //create Enter button post listener.
     var msgInput = document.getElementById('msg');
     if(null != msgInput)
-    {
+    {    
+        var localData = JSON.parse(localStorage.getItem('babble'));    
         msgInput.value = localData.currentMessage;
         msgInput.addEventListener("keypress", function(e)
         {   
             if(13 == e.charCode)
-            sendMsg();
+                sendMsg();
         });
     }
 //get details from local storage, if not anonymous, register with exisiting information and hide modal automatically

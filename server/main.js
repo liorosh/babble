@@ -176,7 +176,7 @@ else if (req.method === 'DELETE' )
         res.writeHead(405);
         res.end();
     }
-    else if(isNaN(msgid)==true)
+    else if(isNaN(msgid) == true)
     {
         res.writeHead(400);
         res.end();
@@ -204,4 +204,27 @@ else
 module.exports.Messages = Messages;
 module.exports.msgId = msgId;
 console.log('Server running.');
+
+/*
+Setting timeout to clear out messages older then 2 minutes to avoid
+Ajax request timeout at the client end.
+*/
+setInterval(function() 
+{
+	// close out requests older than 120 seconds
+	var expiration = new Date().getTime() - 180000;
+    var response;
+    while(clients.length > 0)
+    {
+        response = clients.pop();
+        response.writeHead(200, { "Content-Type": "text/plain" });
+        response.end(JSON.stringify(""));
+    }
+    while(userReq.length > 0)
+    {
+        response = userReq.pop();
+        response.writeHead(200, { "Content-Type": "text/plain" });
+        response.end(JSON.stringify(""));
+    }
+}, 200000);
 
