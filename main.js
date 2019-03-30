@@ -7,6 +7,7 @@ Messages = []
 users = [],
 userReq = [];
 var msgId=0;
+const port=process.env.PORT || 3000
 http.createServer(function (req, res) {
 
     res.setHeader('Content-Type', 'text/plain');
@@ -199,7 +200,7 @@ else
     res.writeHead(405);
     res.end();
 }
-}).listen(9000, 'localhost');
+}).listen(port, 'localhost');
 //export for utils.
 module.exports.Messages = Messages;
 module.exports.msgId = msgId;

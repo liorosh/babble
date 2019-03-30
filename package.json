@@ -1,0 +1,28 @@
+{
+  "name": "babble",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "directories": {
+    "test": "test"
+  },
+  "dependencies": {
+    "init": "^0.1.2",
+    "node-sass": "^4.5.3",
+    "npm-run-all": "^4.1.1",
+    "sinon": "^4.0.0"
+  },
+  "scripts": {
+    "start": "node main.js",
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/liorosh/babble.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/liorosh/babble/issues"
+  },
+  "homepage": "https://github.com/liorosh/babble#readme"
+}
