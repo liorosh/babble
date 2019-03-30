@@ -4,7 +4,7 @@ window.Babble =
     getMessages : function getMessages(counter, callback)
     { 
         var request = new XMLHttpRequest();
-        request.open('GET', 'http://localhost:9000/messages?counter='+counter, true);
+        request.open('GET', 'https://babblechat.herokuapp.com/messages?counter='+counter, true);
         request.send();
         request.onload = function()
         {
@@ -42,7 +42,7 @@ window.Babble =
                 email: userInfo.email,
                 status:'in'
             })
-            request.open('POST','http://localhost:9000/login',true);
+            request.open('POST','https://babblechat.herokuapp.com/login',true);
             request.send(user);
         }
         request.onload = function()
@@ -59,7 +59,7 @@ window.Babble =
     {
         //open message request and send Json string of message object.
         var request = new XMLHttpRequest();
-        request.open("POST", "http://localhost:9000/messages", true);
+        request.open("POST", "https://babblechat.herokuapp.com/messages", true);
         request.setRequestHeader('Content-Type', 'application/json');
         request.send(JSON.stringify(message));
         request.addEventListener('load', function (e)  
@@ -76,7 +76,7 @@ window.Babble =
     deleteMessage: function deleteMessage(id, callback)
     {
         var request = new XMLHttpRequest();
-        request.open('DELETE', 'http://localhost:9000/messages/' + id,true)
+        request.open('DELETE', 'https://babblechat.herokuapp.com/messages/' + id,true)
         request.onload = function()
         {
             if(request.status != 200) //if no success
@@ -90,7 +90,7 @@ window.Babble =
     getStats: function getStats(callback)
     {
         var request = new XMLHttpRequest();
-        request.open('GET','http://localhost:9000/stats',true);
+        request.open('GET','https://babblechat.herokuapp.com/stats',true);
         request.onload = function()
         {
             if(request.status != 200)//if no success
@@ -270,7 +270,7 @@ function to be called from unloading listners and send a logout request to the s
 function logout(usr,callback)
 {
     var request = new XMLHttpRequest();
-    request.open('POST','http://localhost:9000/login',true);
+    request.open('POST','https://babblechat.herokuapp.com/login',true);
     request.onload = function()
     {
         if(request.status!=200) //if no success
